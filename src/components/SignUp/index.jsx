@@ -76,7 +76,7 @@ export const SignUp = () => {
 					title="Apenas letras e números. Tamanho mínimo de 3 caracteres."
 				/>
 				<input
-					type="confirmPassword"
+					type="password"
 					name="confirmPassword"
 					id="confirmPassword"
 					required
