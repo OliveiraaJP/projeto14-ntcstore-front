@@ -57,13 +57,12 @@ a{
 body{
     font-family: 'Roboto';
     font-weight: 400;
-	background-color: #fff;
+	background-color: #fefefe;
 	cursor: default;
 }
 button,
 input{
 	font-family: 'Roboto';
     font-weight: 400;
-	border: none;
 }
 `;
