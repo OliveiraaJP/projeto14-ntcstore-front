@@ -13,6 +13,8 @@ export const Jersey = ({ name, img, price }) => {
 		}
 	};
 
+	
+
 	async function addCart (name, img, price){
 		try {
 			// eslint-disable-next-line no-unused-vars
