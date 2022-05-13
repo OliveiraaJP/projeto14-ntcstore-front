@@ -6,12 +6,13 @@ import car from '../../assets/car.svg';
 import { Jersey } from './Jersey';
 import { UserContext } from '../../contexts/UserContext';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
 
 	const [jerseys, setJerseys] = useState([]);
 
-	const { user } = useContext(UserContext);
+	const { user, setUser } = useContext(UserContext);
 	const URL = 'http://localhost:5000/jerseys';
 
 	const config = {
@@ -27,17 +28,31 @@ export const Home = () => {
 			setJerseys(res.data);
 		});
 		promise.catch((err) => {
-			if(err.response.status === 401){
+			if (err.response.status === 401) {
 				return alert('Sem permissão, faça login novamente');
 			}
 			alert('Erro ao pegar os itens');
 		});
 	}, []);
 
+	const navigate = useNavigate();
+	function logOut() {
+		const confirmation = confirm('Deseja realmente fazer log-out?');
+		if (confirmation) {
+			const promise = axios.delete('http://localhost:5000/session', config);
+			promise.then(() => {
+				localStorage.clear();
+				setUser({ ...user, name: '', token: '' });
+				navigate('/');
+			});
+			promise.catch(() => alert('Erro ao fazer log-out'));
+		}
+	}
+
 	return (
 		<$Home>
 			<header>
-				<img src={deslogar} alt="deslogar" />
+				<img src={deslogar} alt="deslogar" onClick={logOut} />
 				<img src={logo} alt="logo" />
 				<img src={car} alt="car" />
 			</header>
