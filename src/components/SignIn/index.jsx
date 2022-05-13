@@ -1,6 +1,6 @@
-import { $SignIn } from './style';
+import { $SignIn, AutoLogin } from './style';
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
@@ -28,8 +28,8 @@ export const SignIn = () => {
 			const { name, token } = data;
 			setUser({ ...user, name, token });
 
-			/*const userSerialized = JSON.stringify({ name, token });
-			localStorage.setItem('user', userSerialized);*/
+			const userSerialized = JSON.stringify({ name, token });
+			localStorage.setItem('user', userSerialized);
 
 			navigate('/homepage');
 		});
@@ -48,14 +48,14 @@ export const SignIn = () => {
 		});
 	}
 
-	/*const config = {
+	const config = {
 		headers: {
 			'Authorization': `Bearer ${user.token}`
 		}
 	};
 	useEffect(() => {
 		if (user.token.length !== 0) {
-			const promise = axios.post('https://my-wallet-project13.herokuapp.com/auto-login', {}, config);
+			const promise = axios.post('http://localhost:5000/auto-login', {}, config);
 			promise.then(() => {
 				navigate('/homepage');
 			});
@@ -64,11 +64,11 @@ export const SignIn = () => {
 			return (
 				<AutoLogin>
 					<h1>Logando...</h1>
-					<ThreeDots color="#FFFFFF" height={80} width={80} />
+					<ThreeDots color="#000000" height={80} width={80} />
 				</AutoLogin>
 			);
 		}
-	}, []);*/
+	}, []);
 
 	return (
 		<$SignIn>

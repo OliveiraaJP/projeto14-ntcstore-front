@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Checkout } from './components/Checkout';
+import { Cart } from './components/Cart';
 import { Home } from './components/Home';
 import { SignIn } from './components/SignIn';
 import { SignUp } from './components/SignUp';
@@ -11,12 +11,12 @@ export const App = () => {
 	let name = '';
 	let token = '';
 
-	/*const userStringify = localStorage.getItem('user');
-    if (userStringify) {
-        const userLocal = JSON.parse(userStringify);
-        name = userLocal.name;
-        token = userLocal.token;
-    }*/
+	const userStringify = localStorage.getItem('user');
+	if (userStringify) {
+		const userLocal = JSON.parse(userStringify);
+		name = userLocal.name;
+		token = userLocal.token;
+	}
 
 	const [user, setUser] = useState({
 		name,
@@ -32,7 +32,7 @@ export const App = () => {
 						<Route path='/' element={<SignIn />} />
 						<Route path='/cadastro' element={<SignUp />} />
 						<Route path='/homepage' element={<Home />} />
-						<Route path='/checkout' element={<Checkout />} />
+						<Route path='/cart' element={<Cart />} />
 					</Routes>
 				</BrowserRouter>
 			</UserContext.Provider>
