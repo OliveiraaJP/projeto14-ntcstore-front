@@ -6,7 +6,7 @@ export const Jersey = ({ name, img, price }) => {
 		<$Jersey>
 			<img src={img} alt="jersey" />
 			<span>Camisa {name}</span>
-			<span>R${price.toFixed(2).replace('.', ',')}</span>
+			<span>R${Number(price).toFixed(2).replace('.', ',')}</span>
 		</$Jersey>
 	);
 };
