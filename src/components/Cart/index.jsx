@@ -9,6 +9,7 @@ export const Cart = () => {
 	
 	const [cart, setCart] = useState([]);
 	const [totalPrice, setTotalPrice] = useState (0);
+	const [reload, setReload] = useState(0);
 	console.log(cart);
 	const navigate = useNavigate();
 	const { user } = useContext(UserContext);
@@ -28,14 +29,24 @@ export const Cart = () => {
 			somaValores(camisa.data.cart);
 		}
 		importJersey();
-	}, []);
+	}, [reload]);
 
 	async function somaValores(res){
 		console.log('res',res);
 		let total = 0;
 		res.map(x => total += x.price);
 		setTotalPrice(total.toFixed(2));
-		console.log(totalPrice.toFixed(2));
+	}
+
+	async function callbackDelete(name){
+		let confirm = window.confirm('Deseja excluir esse item do carrinho?');
+		if(!confirm) return;
+		try {
+			await axios.post('http://localhost:5000/deletecart', {name} , config);
+			setReload(Math.random());
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	function showcart(){
@@ -69,19 +80,24 @@ export const Cart = () => {
 								key={i}
 								img={jersey.img}
 								name={jersey.name}
-								price={jersey.price}/>
+								price={jersey.price}
+								callbackDelete={() => callbackDelete(jersey.name)}/>
 						);
 					})
 				)}
 			</main>
-			<footer>
-				<h1>Total:</h1>
-				<span>
-					<p>R$ {totalPrice}</p>
-					<h2>Ou até <b>12x</b> de <b>{(totalPrice/12).toFixed(2)} </b> </h2>
-				</span>
-			</footer>
-			<button onClick={goCheckout}>FINALIZAR COMPRA</button>
+			{cart.length !== 0 && (
+				<>
+					<footer>
+						<h1>Total:</h1>
+						<span>
+							<p>R$ {totalPrice}</p>
+							<h2>Ou até <b>12x</b> de <b>{(totalPrice/12).toFixed(2)} </b> </h2>
+						</span>
+					</footer>
+					<button onClick={goCheckout}>FINALIZAR COMPRA</button>
+				</>
+			)}
 		</$Cart>
 	);
 };

@@ -76,7 +76,7 @@ justify-content: center;
 `;
 
 export const $EmptyCart = styled.div`
-margin-top: 15px;
+margin-top: 85px;
 
 border: 1px solid #a0c5e8;
 border-radius: 10px;
