@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Admin } from './components/Admin';
+import { AdminPage } from './components/AdminPage';
 import { Home } from './components/Home';
 import { SignIn } from './components/SignIn';
 import { SignUp } from './components/SignUp';
@@ -19,7 +21,8 @@ export const App = () => {
 
 	const [user, setUser] = useState({
 		name,
-		token
+		token,
+		tokenAdmin: ''
 	});
 
 	return (
@@ -31,6 +34,8 @@ export const App = () => {
 						<Route path='/' element={<SignIn />} />
 						<Route path='/cadastro' element={<SignUp />} />
 						<Route path='/homepage' element={<Home />} />
+						<Route path='/admin' element={<Admin />} />
+						<Route path='/admin-page' element={<AdminPage />} />
 					</Routes>
 				</BrowserRouter>
 			</UserContext.Provider>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const $Jersey = styled.div`
 
-height: 220px;
+height: 200px;
 width: 150px;
 min-width: 150px;
 border: solid 1px #dcdcdc;
@@ -11,10 +11,9 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: space-between;
-padding-bottom: 13px;
+padding-bottom: 5px;
 border-radius: 5px;
 background-color: #d3d3d3;
-position: relative;
 
 img{
     width: 148px;
