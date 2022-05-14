@@ -61,7 +61,8 @@ body{
 	cursor: default;
 }
 button,
-input{
+input,
+select{
 	font-family: 'Roboto';
     font-weight: 400;
 }

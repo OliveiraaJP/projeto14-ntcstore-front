@@ -1,16 +1,16 @@
-import { $SignIn, AutoLogin } from './style';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import logo from '../../assets/logo.jpg';
+import { $SignIn, AutoLogin } from '../SignIn/style';
 
-export const SignIn = () => {
+export const Admin = () => {
 	const navigate = useNavigate();
-	const URL = 'http://localhost:5000/sign-in';
+	const URL = 'http://localhost:5000/admin';
 
-	const [userLogin, setUserLogin] = useState({
+	const [admin, setAdmin] = useState({
 		email: '',
 		password: ''
 	});
@@ -22,42 +22,42 @@ export const SignIn = () => {
 		e.preventDefault();
 		setDisable(true);
 
-		const promise = axios.post(URL, userLogin);
+		const promise = axios.post(URL, admin);
 		promise.then((res) => {
 			const { data } = res;
-			const { name, token } = data;
-			setUser({ ...user, name, token });
+			const { token } = data;
+			setUser({ tokenAdmin: token });
+			console.log(data);
 
-			const userSerialized = JSON.stringify({ name, token });
-			localStorage.setItem('user', userSerialized);
+			localStorage.setItem('tokenAdmin', token);
 
-			navigate('/homepage');
+			navigate('/admin-page');
 		});
 		promise.catch(err => {
 			setDisable(false);
 			if (err.response.status === 404) {
-				return alert('Usuário não encontrado');
+				return alert('Admin não encontrado');
 			}
 			if (err.response.status === 401) {
-				return alert('Senha Incorreta!');
+				return alert('Sem autorização!');
 			}
 			if (err.response.status === 422) {
 				return alert('Preencha os dados corretamente.');
 			}
-			alert('Erro ao fazer Login');
+			alert('Erro ao entrar como Admin.');
 		});
 	}
 
 	const config = {
 		headers: {
-			'Authorization': `Bearer ${user.token}`
+			'Authorization': `Bearer ${user.tokenAdmin}`
 		}
 	};
 	useEffect(() => {
-		if (user.token?.length !== 0) {
-			const promise = axios.post('http://localhost:5000/auto-login', {}, config);
+		if (user.tokenAdmin?.length !== 0) {
+			const promise = axios.post('http://localhost:5000/auto-login-admin', {}, config);
 			promise.then(() => {
-				navigate('/homepage');
+				navigate('/admin-page');
 			});
 			promise.catch(() => alert('Erro ao fazer o auto-login'));
 
@@ -79,9 +79,9 @@ export const SignIn = () => {
 					name="email"
 					id="email"
 					required
-					placeholder="E-mail"
-					onChange={e => setUserLogin({ ...userLogin, email: e.target.value })}
-					value={userLogin.email}
+					placeholder="E-mail Admin"
+					onChange={e => setAdmin({ ...admin, email: e.target.value })}
+					value={admin.email}
 					disabled={disable}
 				/>
 				<input
@@ -89,9 +89,9 @@ export const SignIn = () => {
 					name="password"
 					id="password"
 					required
-					placeholder="Senha"
-					onChange={e => setUserLogin({ ...userLogin, password: e.target.value })}
-					value={userLogin.password}
+					placeholder="Senha Admin"
+					onChange={e => setAdmin({ ...admin, password: e.target.value })}
+					value={admin.password}
 					disabled={disable}
 					minLength="3"
 					pattern="^[a-zA-Z0-9]{3,}$"
@@ -101,11 +101,8 @@ export const SignIn = () => {
 					{disable ? <ThreeDots color="#FFFFFF" height='46' width='46' ariaLabel='loading' /> : 'Entrar'}
 				</button>
 			</form>
-			<Link to='/cadastro'>
-				<span>Primeira vez? Cadastre-se!</span>
-			</Link>
-			<Link to='/admin'>
-				<p>Clique aqui para adicionar camisa! <br/> (Apenas para admin)</p>
+			<Link to='/'>
+				<span>Voltar para login!</span>
 			</Link>
 		</$SignIn>
 	);

@@ -42,7 +42,7 @@ export const Home = () => {
 		if (confirmation) {
 			const promise = axios.delete('http://localhost:5000/session', config);
 			promise.then(() => {
-				localStorage.clear();
+				localStorage.removeItem('user');
 				setUser({ ...user, name: '', token: '' });
 				navigate('/');
 			});
@@ -63,19 +63,36 @@ export const Home = () => {
 			</header>
 			<main>
 				<h1>Bem vindo, {user.name}!</h1>
-				<h2>Camisas de time</h2>
-				<div>
+				<h2>Times Nacionais</h2>
+				<article>
 					{jerseys.map((jersey, i) => {
-						return (
-							<Jersey
-								key={i}
-								name={jersey.name}
-								img={jersey.img}
-								price={jersey.price}
-							/>
-						);
+						if (jersey.type === 'nacional') {
+							return (
+								<Jersey
+									key={i}
+									name={jersey.name}
+									img={jersey.img}
+									price={jersey.price}
+								/>
+							);
+						}
 					})}
-				</div>
+				</article>
+				<h2>Times Internacionais</h2>
+				<article>
+					{jerseys.map((jersey, i) => {
+						if (jersey.type === 'internacional') {
+							return (
+								<Jersey
+									key={i}
+									name={jersey.name}
+									img={jersey.img}
+									price={jersey.price}
+								/>
+							);
+						}
+					})}
+				</article>
 			</main>
 		</$Home>
 	);
