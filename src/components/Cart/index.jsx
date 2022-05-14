@@ -69,7 +69,7 @@ export const Cart = () => {
 			</header>
 			{cart.length === 0 && (
 				<$EmptyCart>
-					<p onClick={showcart}> O carrinho de comprsa está vazio.</p>
+					<p onClick={showcart}> O carrinho de compras está vazio.</p>
 				</$EmptyCart>
 			)}
 			<main>
