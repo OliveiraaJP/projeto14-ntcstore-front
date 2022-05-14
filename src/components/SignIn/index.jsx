@@ -54,7 +54,7 @@ export const SignIn = () => {
 		}
 	};
 	useEffect(() => {
-		if (user.token.length !== 0) {
+		if (user.token?.length !== 0) {
 			const promise = axios.post('http://localhost:5000/auto-login', {}, config);
 			promise.then(() => {
 				navigate('/homepage');
@@ -103,6 +103,9 @@ export const SignIn = () => {
 			</form>
 			<Link to='/cadastro'>
 				<span>Primeira vez? Cadastre-se!</span>
+			</Link>
+			<Link to='/admin'>
+				<p>Clique aqui para adicionar camisa! <br/> (Apenas para admin)</p>
 			</Link>
 		</$SignIn>
 	);

@@ -11,6 +11,7 @@ import { GlobalStyle } from './style';
 export const App = () => {
 	let name = '';
 	let token = '';
+	let tokenAdmin = '';
 
 	const userStringify = localStorage.getItem('user');
 	if (userStringify) {
@@ -18,11 +19,15 @@ export const App = () => {
 		name = userLocal.name;
 		token = userLocal.token;
 	}
+	const tokenAdminLocal = localStorage.getItem('tokenAdmin');
+	if (tokenAdminLocal) {
+		tokenAdmin = tokenAdminLocal;
+	}
 
 	const [user, setUser] = useState({
 		name,
 		token,
-		tokenAdmin: ''
+		tokenAdmin
 	});
 
 	return (

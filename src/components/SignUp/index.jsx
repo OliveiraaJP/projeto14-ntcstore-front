@@ -104,7 +104,7 @@ export const SignUp = () => {
 				</button>
 			</form>
 			<Link to="/">
-				<span>Já posui conta? Faça o login!</span>
+				<span>Já possui conta? Faça o login!</span>
 			</Link>
 		</$SignUp>
 	);

@@ -5,7 +5,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-margin-top: 110px;
+margin-top: 80px;
 input,
 select{
     width: 100vw;
@@ -47,6 +47,14 @@ img{
     width: 120px;
     border-radius: 50%;
     margin-bottom: 50px;
+}
+a{
+    p{
+        font-size: 15px;
+        color: #474a51;
+        text-align: center;
+        margin-top: 80px;
+    }
 }
 `;
 

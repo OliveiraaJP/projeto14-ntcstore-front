@@ -4,6 +4,9 @@ import { useContext, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 import { UserContext } from '../../contexts/UserContext';
 import logo from '../../assets/logo.jpg';
+import { useNavigate } from 'react-router-dom';
+import { $Logout } from './style';
+import deslogar from '../../assets/deslogar-black.svg';
 
 export const AdminPage = () => {
 
@@ -15,7 +18,7 @@ export const AdminPage = () => {
 	});
 
 	const [disable, setDisable] = useState(false);
-	const { user } = useContext(UserContext);
+	const { user, setUser } = useContext(UserContext);
 	const URL = 'http://localhost:5000/jerseys';
 
 	const config = {
@@ -28,7 +31,7 @@ export const AdminPage = () => {
 		e.preventDefault();
 		setDisable(true);
 
-		const promise = axios.post(URL, {...jersey, price: Number(jersey.price)}, config);
+		const promise = axios.post(URL, { ...jersey, price: Number(jersey.price) }, config);
 		promise.then(() => {
 			alert('Camisa adicionada com sucesso!');
 			setDisable(false);
@@ -40,15 +43,35 @@ export const AdminPage = () => {
 				return alert('Preencha os dados corretamente.');
 			}
 			if (err.response.status === 401) {
-				return alert('Sem autorização.');
+				alert('Sem autorização.');
+				localStorage.removeItem('tokenAdmin');
+				setUser({ ...user, tokenAdmin: '' });
+				return navigate('/admin');
 			}
 			alert('Erro ao postar camisa');
 		});
 	}
 
+	const navigate = useNavigate();
+	function logOut() {
+		const confirmation = confirm('Deseja realmente fazer log-out?');
+		if (confirmation) {
+			const promise = axios.delete('http://localhost:5000/admin-session', config);
+			promise.then(() => {
+				localStorage.removeItem('tokenAdmin');
+				setUser({ ...user, tokenAdmin: '' });
+				navigate('/');
+			});
+			promise.catch(() => alert('Erro ao fazer log-out'));
+		}
+	}
+
 	return (
 		<$SignIn>
 			<img src={logo} alt='logo' />
+			<$Logout>
+				<img src={deslogar} alt="deslogar" onClick={logOut} />
+			</$Logout>
 			<form onSubmit={postJersey}>
 				<input
 					type="text"
