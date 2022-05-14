@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Cart } from './components/Cart';
 import { Admin } from './components/Admin';
 import { AdminPage } from './components/AdminPage';
 import { Home } from './components/Home';
@@ -39,6 +40,7 @@ export const App = () => {
 						<Route path='/' element={<SignIn />} />
 						<Route path='/cadastro' element={<SignUp />} />
 						<Route path='/homepage' element={<Home />} />
+						<Route path='/cart' element={<Cart />} />
 						<Route path='/admin' element={<Admin />} />
 						<Route path='/admin-page' element={<AdminPage />} />
 					</Routes>

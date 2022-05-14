@@ -6,7 +6,8 @@ import car from '../../assets/car.svg';
 import { Jersey } from './Jersey';
 import { UserContext } from '../../contexts/UserContext';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
 
 export const Home = () => {
 
@@ -49,12 +50,16 @@ export const Home = () => {
 		}
 	}
 
+	
+
 	return (
 		<$Home>
 			<header>
 				<img src={deslogar} alt="deslogar" onClick={logOut} />
 				<img src={logo} alt="logo" />
-				<img src={car} alt="car" />
+				<Link to={'/cart'}>
+					<img src={car} alt="car" />
+				</Link>
 			</header>
 			<main>
 				<h1>Bem vindo, {user.name}!</h1>
