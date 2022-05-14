@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import logo from '../../assets/logo.jpg';
-import { $SignIn } from '../SignIn/style';
+import { $SignIn, AutoLogin } from '../SignIn/style';
 
 export const Admin = () => {
 	const navigate = useNavigate();
@@ -16,7 +16,7 @@ export const Admin = () => {
 	});
 	const [disable, setDisable] = useState(false);
 
-	const { setUser } = useContext(UserContext);
+	const { user, setUser } = useContext(UserContext);
 
 	function Enter(e) {
 		e.preventDefault();
@@ -28,6 +28,8 @@ export const Admin = () => {
 			const { token } = data;
 			setUser({ tokenAdmin: token });
 			console.log(data);
+
+			localStorage.setItem('tokenAdmin', token);
 
 			navigate('/admin-page');
 		});
@@ -45,6 +47,28 @@ export const Admin = () => {
 			alert('Erro ao entrar como Admin.');
 		});
 	}
+
+	const config = {
+		headers: {
+			'Authorization': `Bearer ${user.tokenAdmin}`
+		}
+	};
+	useEffect(() => {
+		if (user.tokenAdmin?.length !== 0) {
+			const promise = axios.post('http://localhost:5000/auto-login-admin', {}, config);
+			promise.then(() => {
+				navigate('/admin-page');
+			});
+			promise.catch(() => alert('Erro ao fazer o auto-login'));
+
+			return (
+				<AutoLogin>
+					<h1>Logando...</h1>
+					<ThreeDots color="#000000" height={80} width={80} />
+				</AutoLogin>
+			);
+		}
+	}, []);
 
 	return (
 		<$SignIn>
@@ -77,6 +101,9 @@ export const Admin = () => {
 					{disable ? <ThreeDots color="#FFFFFF" height='46' width='46' ariaLabel='loading' /> : 'Entrar'}
 				</button>
 			</form>
+			<Link to='/'>
+				<span>Voltar para login!</span>
+			</Link>
 		</$SignIn>
 	);
 };

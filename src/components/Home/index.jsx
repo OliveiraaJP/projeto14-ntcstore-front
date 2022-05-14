@@ -41,7 +41,7 @@ export const Home = () => {
 		if (confirmation) {
 			const promise = axios.delete('http://localhost:5000/session', config);
 			promise.then(() => {
-				localStorage.clear();
+				localStorage.removeItem('user');
 				setUser({ ...user, name: '', token: '' });
 				navigate('/');
 			});

@@ -38,4 +38,16 @@ span:nth-child(3){
     font-weight: 700;
 }
 
+@media (min-width: 1100px) {
+    height: 210px;
+    width: 160px;
+    min-width: 160px;
+    img{
+        width: 158px;
+        height: 158px;
+    }
+    span{
+        font-size: 17px;
+    }
+}
 `;
