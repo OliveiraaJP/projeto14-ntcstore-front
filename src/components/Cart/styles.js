@@ -14,6 +14,10 @@ justify-content: center;
         width: 100vw;
         height: 55px;
         font-size: 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
 
         span{
             color: white;
@@ -26,6 +30,48 @@ justify-content: center;
         p{
             color: white;
         }
+    }
+
+    main{
+        margin-top: 60px;
+    }
+
+    footer{
+        width: 80vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        h1{
+            font-size: 30px;
+            font-weight: bold;
+        }
+        span{
+            p{
+                display: flex;
+                justify-content: flex-end;
+                font-size: 23px;
+                font-weight: bold;
+            }
+            h2{
+                font-size: 15px;
+                    b{
+                        font-weight: bold;
+                    }
+            }
+        }
+        
+    }
+
+    button{
+        width: 80vw;
+        height: 50px;
+        border-radius: 40px;
+        font-weight: bold;
+        font-size: 14px;
+        color: white;
+        background-color: black;
+        margin-bottom: 20px;
     }
 `;
 

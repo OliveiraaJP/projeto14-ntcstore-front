@@ -11,11 +11,11 @@ export const Jersey = ({ name, img, price }) => {
 		headers: {
 			'Authorization': `Bearer ${user.token}`
 		}
-	};
-
-	
+	};	
 
 	async function addCart (name, img, price){
+		const confirm = window.confirm('deseja adicionar ao carrinho?');
+		if(!confirm) return;
 		try {
 			// eslint-disable-next-line no-unused-vars
 			const promise = axios.post('http://localhost:5000/cart', {name, img, price}, config);
@@ -27,7 +27,7 @@ export const Jersey = ({ name, img, price }) => {
 	}
 
 	return (
-		<$Jersey onClick={() => addCart(img, name, price)}>
+		<$Jersey onClick={() => addCart(name, img, price)}>
 			<img src={img} alt="jersey" />
 			<span>Camisa {name}</span>
 			<span>R${price.toFixed(2).replace('.', ',')}</span>
