@@ -19,8 +19,8 @@ export const AdminPage = () => {
 
 	const [disable, setDisable] = useState(false);
 	const { user, setUser } = useContext(UserContext);
-	//const URL = 'http://localhost:5000/jerseys';
-	const URL = 'https://naotemchuteira.herokuapp.com/jerseys';
+	const URL = 'http://localhost:5000/jerseys';
+	//const URL = 'https://naotemchuteira.herokuapp.com/jerseys';
 
 	const config = {
 		headers: {
@@ -57,8 +57,8 @@ export const AdminPage = () => {
 	function logOut() {
 		const confirmation = confirm('Deseja realmente fazer log-out?');
 		if (confirmation) {
-			const promise = axios.delete(/*'http://localhost:5000/admin-session'*/ 
-				'https://naotemchuteira.herokuapp.com/admin-session', config);
+			const promise = axios.delete('http://localhost:5000/admin-session'
+				/*'https://naotemchuteira.herokuapp.com/admin-session'*/, config);
 			promise.then(() => {
 				localStorage.removeItem('tokenAdmin');
 				setUser({ ...user, tokenAdmin: '' });

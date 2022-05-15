@@ -8,6 +8,7 @@ import { SignIn } from './components/SignIn';
 import { SignUp } from './components/SignUp';
 import { UserContext } from './contexts/UserContext';
 import { GlobalStyle } from './style';
+import { OpenJersey } from './components/OpenJersey';
 
 export const App = () => {
 	let name = '';
@@ -40,6 +41,7 @@ export const App = () => {
 						<Route path='/' element={<SignIn />} />
 						<Route path='/cadastro' element={<SignUp />} />
 						<Route path='/homepage' element={<Home />} />
+						<Route path='/jersey/:id' element={<OpenJersey />} />
 						<Route path='/cart' element={<Cart />} />
 						<Route path='/admin' element={<Admin />} />
 						<Route path='/admin-page' element={<AdminPage />} />
