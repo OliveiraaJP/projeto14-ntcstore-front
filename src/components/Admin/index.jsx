@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import logo from '../../assets/logo.jpg';
 import { $SignIn, AutoLogin } from '../SignIn/style';
+import { Input } from '../Input';
 
 export const Admin = () => {
 	const navigate = useNavigate();
@@ -76,7 +77,7 @@ export const Admin = () => {
 		<$SignIn>
 			<img src={logo} alt='logo' />
 			<form onSubmit={Enter}>
-				<input
+				<Input
 					type="email"
 					name="email"
 					id="email"
@@ -85,8 +86,9 @@ export const Admin = () => {
 					onChange={e => setAdmin({ ...admin, email: e.target.value })}
 					value={admin.email}
 					disabled={disable}
+					message="Email inválido"
 				/>
-				<input
+				<Input 
 					type="password"
 					name="password"
 					id="password"
@@ -97,7 +99,7 @@ export const Admin = () => {
 					disabled={disable}
 					minLength="3"
 					pattern="^[a-zA-Z0-9]{3,}$"
-					title="Apenas letras e números. Tamanho mínimo de 3 caracteres."
+					message="Apenas letras e números. Tamanho mínimo de 3 caracteres."
 				/>
 				<button type="submit" disabled={disable}>
 					{disable ? <ThreeDots color="#FFFFFF" height='46' width='46' ariaLabel='loading' /> : 'Entrar'}

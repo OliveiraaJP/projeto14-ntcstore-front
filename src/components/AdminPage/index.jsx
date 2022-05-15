@@ -7,6 +7,7 @@ import logo from '../../assets/logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import { $Logout } from './style';
 import deslogar from '../../assets/deslogar-black.svg';
+import { Input } from '../Input';
 
 export const AdminPage = () => {
 
@@ -75,7 +76,7 @@ export const AdminPage = () => {
 				<img src={deslogar} alt="deslogar" onClick={logOut} />
 			</$Logout>
 			<form onSubmit={postJersey}>
-				<input
+				<Input
 					type="text"
 					name="name"
 					id="name"
@@ -84,8 +85,9 @@ export const AdminPage = () => {
 					onChange={e => setJersey({ ...jersey, name: e.target.value })}
 					value={jersey.name}
 					disabled={disable}
+					message="Nome inválido"
 				/>
-				<input
+				<Input
 					type="url"
 					name="img"
 					id="img"
@@ -94,8 +96,9 @@ export const AdminPage = () => {
 					onChange={e => setJersey({ ...jersey, img: e.target.value })}
 					value={jersey.img}
 					disabled={disable}
+					message="Url da imagem inválido"
 				/>
-				<input
+				<Input
 					type="number"
 					name="price"
 					id="price"
@@ -106,6 +109,7 @@ export const AdminPage = () => {
 					disabled={disable}
 					min="0"
 					step="0.01"
+					message="Preço inválido"
 				/>
 				<select
 					name="type"
