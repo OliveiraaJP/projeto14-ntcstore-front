@@ -39,12 +39,12 @@ export const Cart = () => {
 		setTotalPrice(total.toFixed(2));
 	}
 
-	async function callbackDelete(name){
+	async function callbackDelete(id){
 		let confirm = window.confirm('Deseja excluir esse item do carrinho?');
 		if(!confirm) return;
 		try {
 			await axios.post('http://localhost:5000/deletecart'
-				/*'https://naotemchuteira.herokuapp.com/deletecart'*/, {name} , config);
+				/*'https://naotemchuteira.herokuapp.com/deletecart'*/, {id} , config);
 			setReload(Math.random());
 		} catch (error) {
 			console.log(error);
@@ -80,11 +80,12 @@ export const Cart = () => {
 						return(
 							<CartJersey 
 								key={i}
+								id={jersey.id}
 								img={jersey.img}
 								name={jersey.name}
 								price={jersey.price}
 								size={jersey.size}
-								callbackDelete={() => callbackDelete(jersey.name)}/>
+								callbackDelete={() => callbackDelete(jersey.id)}/>
 						);
 					})
 				)}

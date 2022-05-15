@@ -15,7 +15,7 @@ export const OpenJersey = () => {
 	const [size, setSize] = useState('P');
 	const [disable, setDisable] = useState(false);
 
-	const { name, img, price, type } = jersey;
+	const { name, img, price, type, _id } = jersey;
 	const { id } = useParams();
 	const { user } = useContext(UserContext);
 	const navigate = useNavigate();
@@ -41,13 +41,13 @@ export const OpenJersey = () => {
 		});
 	}, []);
 
-	async function addCart(name, img, price, size) {
+	async function addCart(name, img, price, size,) {
 		const confirm = window.confirm('deseja adicionar ao carrinho?');
 		if (!confirm) return;
 		try {
 			// eslint-disable-next-line no-unused-vars
 			const promise = axios.post('http://localhost:5000/cart'
-				/*'https://naotemchuteira.herokuapp.com/cart'*/, { name, img, price, size }, config);
+				/*'https://naotemchuteira.herokuapp.com/cart'*/, { name, img, price, size, }, config);
 			console.log(promise);
 			console.log('enviado cart');
 			navigate('/homepage');
