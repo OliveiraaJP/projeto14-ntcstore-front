@@ -8,8 +8,8 @@ import { $SignIn, AutoLogin } from '../SignIn/style';
 
 export const Admin = () => {
 	const navigate = useNavigate();
-	//const URL = 'http://localhost:5000/admin';
-	const URL = 'https://naotemchuteira.herokuapp.com/admin';
+	const URL = 'http://localhost:5000/admin';
+	//const URL = 'https://naotemchuteira.herokuapp.com/admin';
 
 	const [admin, setAdmin] = useState({
 		email: '',
@@ -56,8 +56,8 @@ export const Admin = () => {
 	};
 	useEffect(() => {
 		if (user.tokenAdmin?.length !== 0) {
-			const promise = axios.post(/*'http://localhost:5000/auto-login-admin'*/
-				'https://naotemchuteira.herokuapp.com/auto-login-admin', {}, config);
+			const promise = axios.post('http://localhost:5000/auto-login-admin'
+				/*'https://naotemchuteira.herokuapp.com/auto-login-admin'*/, {}, config);
 			promise.then(() => {
 				navigate('/admin-page');
 			});

@@ -8,8 +8,8 @@ import logo from '../../assets/logo.jpg';
 
 export const SignIn = () => {
 	const navigate = useNavigate();
-	//const URL = 'http://localhost:5000/sign-in';
-	const URL = 'https://naotemchuteira.herokuapp.com/sign-in';
+	const URL = 'http://localhost:5000/sign-in';
+	//const URL = 'https://naotemchuteira.herokuapp.com/sign-in';
 
 	const [userLogin, setUserLogin] = useState({
 		email: '',
@@ -56,8 +56,8 @@ export const SignIn = () => {
 	};
 	useEffect(() => {
 		if (user.token?.length !== 0) {
-			const promise = axios.post(/*'http://localhost:5000/auto-login'*/ 
-				'https://naotemchuteira.herokuapp.com/auto-login', {}, config);
+			const promise = axios.post('http://localhost:5000/auto-login'
+				/*'https://naotemchuteira.herokuapp.com/auto-login'*/, {}, config);
 			promise.then(() => {
 				navigate('/homepage');
 			});

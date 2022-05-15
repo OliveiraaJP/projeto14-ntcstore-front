@@ -14,8 +14,8 @@ export const Home = () => {
 	const [jerseys, setJerseys] = useState([]);
 
 	const { user, setUser } = useContext(UserContext);
-	//const URL = 'http://localhost:5000/jerseys';
-	const URL = 'https://naotemchuteira.herokuapp.com/jerseys';
+	const URL = 'http://localhost:5000/jerseys';
+	//const URL = 'https://naotemchuteira.herokuapp.com/jerseys';
 
 	const config = {
 		headers: {
@@ -41,8 +41,8 @@ export const Home = () => {
 	function logOut() {
 		const confirmation = confirm('Deseja realmente fazer log-out?');
 		if (confirmation) {
-			const promise = axios.delete(/*'http://localhost:5000/session'*/ 
-				'https://naotemchuteira.herokuapp.com/session', config);
+			const promise = axios.delete('http://localhost:5000/session'
+				/*'https://naotemchuteira.herokuapp.com/session'*/, config);
 			promise.then(() => {
 				localStorage.removeItem('user');
 				setUser({ ...user, name: '', token: '' });
@@ -75,6 +75,7 @@ export const Home = () => {
 									name={jersey.name}
 									img={jersey.img}
 									price={jersey.price}
+									id={jersey._id}
 								/>
 							);
 						}

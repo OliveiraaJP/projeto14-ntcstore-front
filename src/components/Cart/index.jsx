@@ -23,8 +23,8 @@ export const Cart = () => {
 	useEffect(() => {
 		let camisa = null;
 		async function importJersey() {
-			camisa = await axios.get(/*'http://localhost:5000/cart'*/ 
-				'https://naotemchuteira.herokuapp.com/cart', config);
+			camisa = await axios.get('http://localhost:5000/cart'
+				/*'https://naotemchuteira.herokuapp.com/cart'*/, config);
 			console.log(camisa);
 			setCart(camisa.data.cart);
 			somaValores(camisa.data.cart);
@@ -43,8 +43,8 @@ export const Cart = () => {
 		let confirm = window.confirm('Deseja excluir esse item do carrinho?');
 		if(!confirm) return;
 		try {
-			await axios.post(/*'http://localhost:5000/deletecart'*/ 
-				'https://naotemchuteira.herokuapp.com/deletecart', {name} , config);
+			await axios.post('http://localhost:5000/deletecart'
+				/*'https://naotemchuteira.herokuapp.com/deletecart'*/, {name} , config);
 			setReload(Math.random());
 		} catch (error) {
 			console.log(error);
@@ -83,6 +83,7 @@ export const Cart = () => {
 								img={jersey.img}
 								name={jersey.name}
 								price={jersey.price}
+								size={jersey.size}
 								callbackDelete={() => callbackDelete(jersey.name)}/>
 						);
 					})

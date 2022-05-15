@@ -6,7 +6,7 @@ import axios from 'axios';
 import { UserContext } from '../../../contexts/UserContext';
 import { useContext } from 'react';
 
-export const CartJersey = ({ img, name, price, callbackDelete }) => {
+export const CartJersey = ({ img, name, price, size, callbackDelete }) => {
 
 	const { user } = useContext(UserContext);
 
@@ -20,7 +20,7 @@ export const CartJersey = ({ img, name, price, callbackDelete }) => {
 		<$Container>
 			<img className="shirt" src={img} alt="" />
 			<span>
-				<h2>{name}</h2>
+				<h2>{name} {size}</h2>
 				<p>R$ {price.toFixed(2)}</p>
 			</span>
 			<$Span>
