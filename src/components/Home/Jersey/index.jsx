@@ -18,7 +18,8 @@ export const Jersey = ({ name, img, price }) => {
 		if(!confirm) return;
 		try {
 			// eslint-disable-next-line no-unused-vars
-			const promise = axios.post('http://localhost:5000/cart', {name, img, price}, config);
+			const promise = axios.post(/*'http://localhost:5000/cart'*/ 
+				'https://naotemchuteira.herokuapp.com/cart', {name, img, price}, config);
 			console.log(promise);
 			console.log('enviado cart');
 		} catch (error) {

@@ -7,7 +7,8 @@ import axios from 'axios';
 
 export const SignUp = () => {
 	const navigate = useNavigate();
-	const URL = 'http://localhost:5000/signup';
+	//const URL = 'http://localhost:5000/signup';
+	const URL = 'https://naotemchuteira.herokuapp.com/signup';
 
 	const [userSignup, setUserSignup] = useState({
 		email: '',
