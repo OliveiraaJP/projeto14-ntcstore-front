@@ -23,7 +23,8 @@ export const Cart = () => {
 	useEffect(() => {
 		let camisa = null;
 		async function importJersey() {
-			camisa = await axios.get('http://localhost:5000/cart', config);
+			camisa = await axios.get(/*'http://localhost:5000/cart'*/ 
+				'https://naotemchuteira.herokuapp.com/cart', config);
 			console.log(camisa);
 			setCart(camisa.data.cart);
 			somaValores(camisa.data.cart);
@@ -42,7 +43,8 @@ export const Cart = () => {
 		let confirm = window.confirm('Deseja excluir esse item do carrinho?');
 		if(!confirm) return;
 		try {
-			await axios.post('http://localhost:5000/deletecart', {name} , config);
+			await axios.post(/*'http://localhost:5000/deletecart'*/ 
+				'https://naotemchuteira.herokuapp.com/deletecart', {name} , config);
 			setReload(Math.random());
 		} catch (error) {
 			console.log(error);
@@ -67,13 +69,13 @@ export const Cart = () => {
 				<span onClick={backToMain}>X</span>
 				<p>Carrinho de Compras</p>
 			</header>
-			{cart.length === 0 && (
+			{cart?.length === 0 && (
 				<$EmptyCart>
 					<p onClick={showcart}> O carrinho de compras está vazio.</p>
 				</$EmptyCart>
 			)}
 			<main>
-				{cart.length !== 0 && (
+				{cart?.length !== 0 && (
 					cart.map((jersey, i) => {
 						return(
 							<CartJersey 
@@ -86,7 +88,7 @@ export const Cart = () => {
 					})
 				)}
 			</main>
-			{cart.length !== 0 && (
+			{cart?.length !== 0 && (
 				<>
 					<footer>
 						<h1>Total:</h1>
