@@ -11,7 +11,7 @@ export const Checkout = () => {
 	const navigator = useNavigate();
 	const {state, products} = navigate;
 	const {user} = useContext(UserContext);
-	const [userInfo, setUserInfo] = useState({name:'', lastName:'', tel:'' ,adress:'', numberAdress:'', adressComplement:'', parcel:1, price:state});
+	const [userInfo, setUserInfo] = useState({name:'', lastName:'', tel:'' ,adress:'', numberAdress:'', adressComplement:'', parcel:1, price:state, products:products});
 	const [parcel, setParcel] = useState(1);
 	console.log(parcel);
 	console.log(userInfo);
