@@ -7,12 +7,9 @@ import { Jersey } from './Jersey';
 import { UserContext } from '../../contexts/UserContext';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-
-
+import Swal from 'sweetalert2';
 
 export const Home = () => {
-	
-	
 	const [jerseys, setJerseys] = useState([]);
 
 	const { user, setUser } = useContext(UserContext);
@@ -21,21 +18,29 @@ export const Home = () => {
 
 	const config = {
 		headers: {
-			'Authorization': `Bearer ${user.token}`
-		}
+			Authorization: `Bearer ${user.token}`,
+		},
 	};
 
 	useEffect(() => {
 		const promise = axios.get(URL, config);
-		promise.then(res => {
+		promise.then((res) => {
 			console.log(res.data);
 			setJerseys(res.data);
 		});
 		promise.catch((err) => {
 			if (err.response.status === 401) {
-				return alert('Sem permissão, faça login novamente');
+				return Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Sem permissão faça login novamente',
+				});
 			}
-			alert('Erro ao pegar os itens');
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Erro ao pegar os itens',
+			});
 		});
 	}, []);
 
@@ -43,8 +48,10 @@ export const Home = () => {
 	function logOut() {
 		const confirmation = confirm('Deseja realmente fazer log-out?');
 		if (confirmation) {
-			const promise = axios.delete(`${process.env.REACT_APP_API_URI}/session`
-				/*'https://naotemchuteira.herokuapp.com/session'*/, config);
+			const promise = axios.delete(
+				`${process.env.REACT_APP_API_URI}/session`,
+				/*'https://naotemchuteira.herokuapp.com/session'*/ config
+			);
 			promise.then(() => {
 				localStorage.removeItem('user');
 				setUser({ ...user, name: '', token: '' });
@@ -53,8 +60,6 @@ export const Home = () => {
 			promise.catch(() => alert('Erro ao fazer log-out'));
 		}
 	}
-
-	
 
 	return (
 		<$Home>
