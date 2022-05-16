@@ -9,12 +9,14 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 
 
-export const Home = () => {
 
+export const Home = () => {
+	
+	
 	const [jerseys, setJerseys] = useState([]);
 
 	const { user, setUser } = useContext(UserContext);
-	const URL = 'http://localhost:5000/jerseys';
+	const URL = `${process.env.REACT_APP_API_URI}/jerseys`;
 	//const URL = 'https://naotemchuteira.herokuapp.com/jerseys';
 
 	const config = {
@@ -41,7 +43,7 @@ export const Home = () => {
 	function logOut() {
 		const confirmation = confirm('Deseja realmente fazer log-out?');
 		if (confirmation) {
-			const promise = axios.delete('http://localhost:5000/session'
+			const promise = axios.delete(`${process.env.REACT_APP_API_URI}/session`
 				/*'https://naotemchuteira.herokuapp.com/session'*/, config);
 			promise.then(() => {
 				localStorage.removeItem('user');

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { $SignIn, AutoLogin } from './style';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
@@ -5,10 +6,14 @@ import { ThreeDots } from 'react-loader-spinner';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import logo from '../../assets/logo.jpg';
+import { Input } from '../Input';
+
 
 export const SignIn = () => {
+
+	
 	const navigate = useNavigate();
-	const URL = 'http://localhost:5000/sign-in';
+	const URL = `${process.env.REACT_APP_API_URI}/sign-in`;
 	//const URL = 'https://naotemchuteira.herokuapp.com/sign-in';
 
 	const [userLogin, setUserLogin] = useState({
@@ -56,7 +61,7 @@ export const SignIn = () => {
 	};
 	useEffect(() => {
 		if (user.token?.length !== 0) {
-			const promise = axios.post('http://localhost:5000/auto-login'
+			const promise = axios.post(`${process.env.REACT_APP_API_URI}/auto-login`
 				/*'https://naotemchuteira.herokuapp.com/auto-login'*/, {}, config);
 			promise.then(() => {
 				navigate('/homepage');
@@ -76,7 +81,7 @@ export const SignIn = () => {
 		<$SignIn>
 			<img src={logo} alt='logo' />
 			<form onSubmit={Enter}>
-				<input
+				<Input 
 					type="email"
 					name="email"
 					id="email"
@@ -85,8 +90,9 @@ export const SignIn = () => {
 					onChange={e => setUserLogin({ ...userLogin, email: e.target.value })}
 					value={userLogin.email}
 					disabled={disable}
+					message="Email inválido"
 				/>
-				<input
+				<Input 
 					type="password"
 					name="password"
 					id="password"
@@ -97,7 +103,7 @@ export const SignIn = () => {
 					disabled={disable}
 					minLength="3"
 					pattern="^[a-zA-Z0-9]{3,}$"
-					title="Apenas letras e números. Tamanho mínimo de 3 caracteres."
+					message="Apenas letras e números. Tamanho mínimo de 3 caracteres."
 				/>
 				<button type="submit" disabled={disable}>
 					{disable ? <ThreeDots color="#FFFFFF" height='46' width='46' ariaLabel='loading' /> : 'Entrar'}
@@ -107,7 +113,7 @@ export const SignIn = () => {
 				<span>Primeira vez? Cadastre-se!</span>
 			</Link>
 			<Link to='/admin'>
-				<p>Clique aqui para adicionar camisa! <br/> (Apenas para admin)</p>
+				<p>Clique aqui para adicionar camisa! <br /> (Apenas para admin)</p>
 			</Link>
 		</$SignIn>
 	);

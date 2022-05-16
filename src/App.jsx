@@ -15,6 +15,7 @@ export const App = () => {
 	let name = '';
 	let token = '';
 	let tokenAdmin = '';
+	let products = [];
 
 	const userStringify = localStorage.getItem('user');
 	if (userStringify) {
@@ -30,7 +31,8 @@ export const App = () => {
 	const [user, setUser] = useState({
 		name,
 		token,
-		tokenAdmin
+		tokenAdmin,
+		products
 	});
 
 	return (
