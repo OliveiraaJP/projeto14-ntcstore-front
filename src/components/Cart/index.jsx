@@ -7,10 +7,8 @@ import { CartJersey } from './CartJersey';
 
 
 export const Cart = () => {
-	
-	
 	const [cart, setCart] = useState([]);
-	const [totalPrice, setTotalPrice] = useState (0);
+	const [totalPrice, setTotalPrice] = useState(0);
 	const [reload, setReload] = useState(0);
 	console.log(cart);
 	const navigate = useNavigate();
@@ -34,16 +32,16 @@ export const Cart = () => {
 		importJersey();
 	}, [reload]);
 
-	async function somaValores(res){
-		console.log('res',res);
+	async function somaValores(res) {
+		console.log('res', res);
 		let total = 0;
 		res.map(x => total += x.price);
 		setTotalPrice(total.toFixed(2));
 	}
 
-	async function callbackDelete(id){
+	async function callbackDelete(id) {
 		let confirm = window.confirm('Deseja excluir esse item do carrinho?');
-		if(!confirm) return;
+		if (!confirm) return;
 		try {
 			await axios.post(`${process.env.REACT_APP_API_URI}/deletecart`
 				/*'https://naotemchuteira.herokuapp.com/deletecart'*/, {id} , config);
@@ -53,7 +51,7 @@ export const Cart = () => {
 		}
 	}
 
-	function showcart(){
+	function showcart() {
 		console.log(cart);
 	}
 
@@ -61,13 +59,14 @@ export const Cart = () => {
 		navigate('/homepage');
 	}
 
-	function goCheckout(){
+	function goCheckout() {
 		let camisas = [];
 		cart.map(x => {
-			const obj = {name: x.name, size: x.size};
-			camisas.push(obj);});
+			const obj = { name: x.name, size: x.size };
+			camisas.push(obj);
+		});
 		console.log(camisas);
-		navigate('/checkout',{state: totalPrice, producs: camisas} );
+		navigate('/checkout', { state: totalPrice, producs: camisas });
 	}
 
 	return (
@@ -84,15 +83,16 @@ export const Cart = () => {
 			<main>
 				{cart?.length !== 0 && (
 					cart.map((jersey, i) => {
-						return(
-							<CartJersey 
+						return (
+							<CartJersey
 								key={i}
 								id={jersey.id}
 								img={jersey.img}
 								name={jersey.name}
 								price={jersey.price}
 								size={jersey.size}
-								callbackDelete={() => callbackDelete(jersey.id)}/>
+								callbackDelete={() => callbackDelete(jersey.id)}
+							/>
 						);
 					})
 				)}
@@ -103,7 +103,7 @@ export const Cart = () => {
 						<h1>Total:</h1>
 						<span>
 							<p>R$ {totalPrice}</p>
-							<h2>Ou até <b>12x</b> de <b>{(totalPrice/12).toFixed(2)} </b> </h2>
+							<h2>Ou até <b>12x</b> de <b>{(totalPrice / 12).toFixed(2)} </b> </h2>
 						</span>
 					</footer>
 					<button onClick={goCheckout}>FINALIZAR COMPRA</button>
