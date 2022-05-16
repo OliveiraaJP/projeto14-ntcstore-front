@@ -11,12 +11,11 @@ export const Checkout = () => {
 	
 	const navigate = useLocation();
 	const navigator = useNavigate();
-	const {state, products} = navigate;
+	const {state} = navigate;
 	const {user} = useContext(UserContext);
-	const [userInfo, setUserInfo] = useState({name:'', lastName:'', tel:'' ,adress:'', numberAdress:'', adressComplement:'', parcel:1, price:state});
-	const [parcel, setParcel] = useState(1);
-	console.log(parcel);
-	console.log(userInfo);
+	const [userInfo, setUserInfo] = useState({name:'', lastName:'', tel:'' ,adress:'', numberAdress:'', adressComplement:'', parcel:1, price:state, products:user.products});
+	console.log('state ' + state);
+	console.log(user);
 
 	const config = {
 		headers: {
@@ -27,8 +26,8 @@ export const Checkout = () => {
 	async function confirmBuy(e){
 		e.preventDefault();
 		try {
+			await setUserInfo({name:'', lastName:'', tel:'' ,adress:'', numberAdress:'', adressComplement:'', parcel:1, price:state, products:user.products});
 			await axios.post(`${process.env.REACT_APP_API_URI}/checkout`, {userInfo},config );
-			setUserInfo({name:'', lastName:'', tel:'' ,adress:'', numberAdress:'', adressComplement:'', parcel:1, price:state, products:products});
 			window.alert('Compra efetuada');
 			navigator('/homepage');
 		} catch (error) {
@@ -62,7 +61,7 @@ export const Checkout = () => {
 					<select
 						name="parcel"
 						id="parcel"
-						onChange={e => setParcel(e.target.value)}
+						onChange={e => setUserInfo({...userInfo, parcel: e.target.value})}
 						required
 					>
 						{[1,2,3,4,5,6,7,8,9,10,11,12].map((parcel, index) =>(
