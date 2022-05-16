@@ -8,9 +8,12 @@ import { UserContext } from '../../contexts/UserContext';
 import logo from '../../assets/logo.jpg';
 import { Input } from '../Input';
 
+
 export const SignIn = () => {
+
+	
 	const navigate = useNavigate();
-	const URL = 'http://localhost:5000/sign-in';
+	const URL = `${process.env.REACT_APP_API_URI}/sign-in`;
 	//const URL = 'https://naotemchuteira.herokuapp.com/sign-in';
 
 	const [userLogin, setUserLogin] = useState({
@@ -58,7 +61,7 @@ export const SignIn = () => {
 	};
 	useEffect(() => {
 		if (user.token?.length !== 0) {
-			const promise = axios.post('http://localhost:5000/auto-login'
+			const promise = axios.post(`${process.env.REACT_APP_API_URI}/auto-login`
 				/*'https://naotemchuteira.herokuapp.com/auto-login'*/, {}, config);
 			promise.then(() => {
 				navigate('/homepage');
