@@ -76,13 +76,13 @@ export const Cart = () => {
 				<span onClick={backToMain}>X</span>
 				<p>Carrinho de Compras</p>
 			</header>
-			{cart.length === 0 && (
+			{cart?.length === 0 && (
 				<$EmptyCart>
 					<p onClick={showcart}> O carrinho de compras está vazio.</p>
 				</$EmptyCart>
 			)}
 			<main>
-				{cart.length !== 0 && (
+				{cart?.length !== 0 && (
 					cart.map((jersey, i) => {
 						return(
 							<CartJersey 
@@ -97,7 +97,7 @@ export const Cart = () => {
 					})
 				)}
 			</main>
-			{cart.length !== 0 && (
+			{cart?.length !== 0 && (
 				<>
 					<footer>
 						<h1>Total:</h1>
