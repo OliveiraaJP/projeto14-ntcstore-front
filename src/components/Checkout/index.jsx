@@ -13,9 +13,11 @@ export const Checkout = () => {
 	const navigator = useNavigate();
 	const {state} = navigate;
 	const {user} = useContext(UserContext);
+
 	const [userInfo, setUserInfo] = useState({name:'', lastName:'', tel:'' ,adress:'', numberAdress:'', adressComplement:'', parcel:1, price:state, products:user.products});
 	console.log('state ' + state);
 	console.log(user);
+
 
 	const config = {
 		headers: {

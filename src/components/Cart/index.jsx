@@ -36,7 +36,8 @@ export const Cart = () => {
 	async function somaValores(res) {
 		console.log('res', res);
 		let total = 0;
-		res.map((x) => (total += x.price));
+
+		res.map(x => total += x.price * x.qty);
 		setTotalPrice(total.toFixed(2));
 	}
 
@@ -44,11 +45,32 @@ export const Cart = () => {
 		let confirm = window.confirm('Deseja excluir esse item do carrinho?');
 		if (!confirm) return;
 		try {
-			await axios.post(
-				`${process.env.REACT_APP_API_URI}/deletecart`,
-				/*'https://naotemchuteira.herokuapp.com/deletecart'*/ { id },
-				config
-			);
+
+			await axios.post(`${process.env.REACT_APP_API_URI}/deletecart`
+				/*'https://naotemchuteira.herokuapp.com/deletecart'*/, { id }, config);
+			setReload(Math.random());
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async function callbackPlus(id) {
+		try {
+			const jersey = cart.find(el => el.id === id);
+			await axios.post(`${process.env.REACT_APP_API_URI}/add`
+				/*'https://naotemchuteira.herokuapp.com/add'*/, { id: jersey.id, qty: jersey.qty }, config);
+			setReload(Math.random());
+		} catch (error) {
+			console.log(error);
+		}
+	}
+	
+	async function callbackMinus(id) {
+		try {
+			const jersey = cart.find(el => el.id === id);
+			await axios.post(`${process.env.REACT_APP_API_URI}/remove`
+				/*'https://naotemchuteira.herokuapp.com/add'*/, { id: jersey.id, qty: jersey.qty }, config);
+
 			setReload(Math.random());
 		} catch (error) {
 			console.log(error);
@@ -65,8 +87,10 @@ export const Cart = () => {
 
 	function goCheckout() {
 		let camisas = [];
-		cart.map((x) => {
-			const obj = { name: x.name, size: x.size };
+
+		cart.map(x => {
+			const obj = { name: x.name, size: x.size, qty: x.qty };
+
 			camisas.push(obj);
 		});
 		console.log(camisas);
@@ -98,7 +122,10 @@ export const Cart = () => {
 								name={jersey.name}
 								price={jersey.price}
 								size={jersey.size}
+								qty={jersey.qty}
 								callbackDelete={() => callbackDelete(jersey.id)}
+								callbackPlus={() => callbackPlus(jersey.id)}
+								callbackMinus={() => callbackMinus(jersey.id)}
 							/>
 						);
 					})}

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { UserContext } from '../../../contexts/UserContext';
 import { useContext } from 'react';
 
-export const CartJersey = ({ img, name, price, size, callbackDelete }) => {
+export const CartJersey = ({ img, name, price, size, qty, callbackDelete, callbackPlus, callbackMinus }) => {
 
 	const { user } = useContext(UserContext);
 
@@ -26,9 +26,9 @@ export const CartJersey = ({ img, name, price, size, callbackDelete }) => {
 			<$Span>
 				<$Trashcan src={trashcan} alt="trascan" onClick={(name) => callbackDelete(name)} />
 				<div>
-					<p>-</p>
-					<h3>1</h3>
-					<p>+</p>
+					<p onClick={(id) => callbackMinus(id)} >-</p>
+					<h3>{qty}</h3>
+					<p onClick={(id) => callbackPlus(id)} >+</p>
 				</div>
 			</$Span>
 		</$Container>
