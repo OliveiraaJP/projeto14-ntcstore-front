@@ -17,6 +17,7 @@ export const Checkout = () => {
 	const [parcel, setParcel] = useState(1);
 	console.log(parcel);
 	console.log(userInfo);
+	console.log(products);
 
 	const config = {
 		headers: {
