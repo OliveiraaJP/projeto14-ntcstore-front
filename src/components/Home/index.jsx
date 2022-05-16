@@ -93,6 +93,7 @@ export const Home = () => {
 									name={jersey.name}
 									img={jersey.img}
 									price={jersey.price}
+									id={jersey._id}
 								/>
 							);
 						}

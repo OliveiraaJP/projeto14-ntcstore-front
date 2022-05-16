@@ -42,6 +42,7 @@ export const $BuySafe = styled.div`
 
 export const $Main = styled.main`
   padding: 0 20px;
+  padding-bottom: 30px;
   
   h1 {
     margin-top: 20px;
@@ -74,7 +75,7 @@ export const $Main = styled.main`
     display: block;
     margin: auto;
     margin-top: 30px;
-    margin-bottom: 30px;
+    //margin-bottom: 30px;
     max-width: 326px;
     width: 250px;
     height: 46px;
