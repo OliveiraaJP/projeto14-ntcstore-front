@@ -44,9 +44,9 @@ export const App = () => {
 						<Route path='/homepage' element={<Home />} />
 						<Route path='/jersey/:id' element={<OpenJersey />} />
 						<Route path='/cart' element={<Cart />} />
+						<Route path='/checkout' element={<Checkout />} />
 						<Route path='/admin' element={<Admin />} />
 						<Route path='/admin-page' element={<AdminPage />} />
-						<Route path='/checkout' element={<Checkout />} />
 					</Routes>
 				</BrowserRouter>
 			</UserContext.Provider>
