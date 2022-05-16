@@ -9,8 +9,10 @@ import { UserContext } from '../../contexts/UserContext';
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
 
+
 export const OpenJersey = () => {
 
+	
 	const [jersey, setJersey] = useState({});
 	const [size, setSize] = useState('P');
 	const [disable, setDisable] = useState(false);
@@ -20,7 +22,7 @@ export const OpenJersey = () => {
 	const { user } = useContext(UserContext);
 	const navigate = useNavigate();
 	//const URL = `https://naotemchuteira.herokuapp.com/jersey/${id}`;
-	const URL = `http://localhost:5000/jersey/${id}`;
+	const URL = `${process.env.REACT_APP_API_URI}/jersey/${id}`;
 
 	const config = {
 		headers: {
@@ -46,7 +48,7 @@ export const OpenJersey = () => {
 		if (!confirm) return;
 		try {
 			// eslint-disable-next-line no-unused-vars
-			const promise = axios.post('http://localhost:5000/cart'
+			const promise = axios.post(`${process.env.REACT_APP_API_URI}/cart`
 				/*'https://naotemchuteira.herokuapp.com/cart'*/, { name, img, price, size, }, config);
 			console.log(promise);
 			console.log('enviado cart');
