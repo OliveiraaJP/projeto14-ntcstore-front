@@ -95,6 +95,10 @@ export const Cart = () => {
 		});
 		console.log(camisas);
 		setUser({...user, products: camisas});
+
+		const productsSerialized = JSON.stringify({ camisas });
+		localStorage.setItem('products', productsSerialized);
+
 		navigate('/checkout', {
 			state: totalPrice,
 		});

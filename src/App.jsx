@@ -27,6 +27,11 @@ export const App = () => {
 	if (tokenAdminLocal) {
 		tokenAdmin = tokenAdminLocal;
 	}
+	const productsStringify = localStorage.getItem('products');
+	if (productsStringify) {
+		const productsLocal = JSON.parse(productsStringify);
+		products = productsLocal;
+	}
 
 	const [user, setUser] = useState({
 		name,
