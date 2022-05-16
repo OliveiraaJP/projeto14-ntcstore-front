@@ -6,7 +6,6 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 margin-top: 80px;
-input,
 select{
     width: 100vw;
     max-width: 326px;
