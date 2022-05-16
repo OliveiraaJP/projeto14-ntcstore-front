@@ -6,7 +6,7 @@ import { UserContext } from '../../contexts/UserContext';
 import logo from '../../assets/logo.jpg';
 import { $SignIn, AutoLogin } from '../SignIn/style';
 import { Input } from '../Input';
-
+import Swal from 'sweetalert2';
 
 export const Admin = () => {
 	
@@ -40,15 +40,31 @@ export const Admin = () => {
 		promise.catch(err => {
 			setDisable(false);
 			if (err.response.status === 404) {
-				return alert('Admin não encontrado');
+				return Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Admin nao encontrado!',
+				});
 			}
 			if (err.response.status === 401) {
-				return alert('Sem autorização!');
+				return Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Sem autorização',
+				});
 			}
 			if (err.response.status === 422) {
-				return alert('Preencha os dados corretamente.');
+				return Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Preencha os dados corretamente',
+				});
 			}
-			alert('Erro ao entrar como Admin.');
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Erro ao entrar como admin',
+			});
 		});
 	}
 
@@ -64,7 +80,7 @@ export const Admin = () => {
 			promise.then(() => {
 				navigate('/admin-page');
 			});
-			promise.catch(() => alert('Erro ao fazer o auto-login'));
+			promise.catch(() => alert('Erro ao fazer auto-login'));
 
 			return (
 				<AutoLogin>

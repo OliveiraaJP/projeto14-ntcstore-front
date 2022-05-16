@@ -8,16 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import { $Logout } from './style';
 import deslogar from '../../assets/deslogar-black.svg';
 import { Input } from '../Input';
-
+import Swal from 'sweetalert2';
 
 export const AdminPage = () => {
-
-	
 	const [jersey, setJersey] = useState({
 		name: '',
 		img: '',
 		price: '',
-		type: 'nacional'
+		type: 'nacional',
 	});
 
 	const [disable, setDisable] = useState(false);
@@ -27,21 +25,30 @@ export const AdminPage = () => {
 
 	const config = {
 		headers: {
-			'Authorization': `Bearer ${user.tokenAdmin}`
-		}
+			Authorization: `Bearer ${user.tokenAdmin}`,
+		},
 	};
 
 	function postJersey(e) {
 		e.preventDefault();
 		setDisable(true);
 
-		const promise = axios.post(URL, { ...jersey, price: Number(jersey.price) }, config);
+		const promise = axios.post(
+			URL,
+			{ ...jersey, price: Number(jersey.price) },
+			config
+		);
 		promise.then(() => {
-			alert('Camisa adicionada com sucesso!');
+			Swal.fire({
+				icon: 'success',
+				title: 'Camisa adicionada com sucesso!',
+				showConfirmButton: false,
+				timer: 2000,
+			});
 			setDisable(false);
 			setJersey({ ...jersey, name: '', img: '', price: '', type: 'nacional' });
 		});
-		promise.catch(err => {
+		promise.catch((err) => {
 			setDisable(false);
 			if (err.response.status === 422) {
 				return alert('Preencha os dados corretamente.');
@@ -60,20 +67,24 @@ export const AdminPage = () => {
 	function logOut() {
 		const confirmation = confirm('Deseja realmente fazer log-out?');
 		if (confirmation) {
-			const promise = axios.delete(`${process.env.REACT_APP_API_URI}admin-session`
-				/*'https://naotemchuteira.herokuapp.com/admin-session'*/, config);
+			const promise = axios.delete(
+				`${process.env.REACT_APP_API_URI}/admin-session`,
+				/*'https://naotemchuteira.herokuapp.com/admin-session'*/ config
+			);
 			promise.then(() => {
 				localStorage.removeItem('tokenAdmin');
 				setUser({ ...user, tokenAdmin: '' });
 				navigate('/');
 			});
-			promise.catch(() => alert('Erro ao fazer log-out'));
+			promise.catch(() =>
+				alert('Erro ao fazer auto-login')
+			);
 		}
 	}
 
 	return (
 		<$SignIn>
-			<img src={logo} alt='logo' />
+			<img src={logo} alt="logo" />
 			<$Logout>
 				<img src={deslogar} alt="deslogar" onClick={logOut} />
 			</$Logout>
@@ -84,7 +95,7 @@ export const AdminPage = () => {
 					id="name"
 					required
 					placeholder="Nome do time"
-					onChange={e => setJersey({ ...jersey, name: e.target.value })}
+					onChange={(e) => setJersey({ ...jersey, name: e.target.value })}
 					value={jersey.name}
 					disabled={disable}
 					message="Nome inválido"
@@ -95,7 +106,7 @@ export const AdminPage = () => {
 					id="img"
 					required
 					placeholder="Url da imagem"
-					onChange={e => setJersey({ ...jersey, img: e.target.value })}
+					onChange={(e) => setJersey({ ...jersey, img: e.target.value })}
 					value={jersey.img}
 					disabled={disable}
 					message="Url da imagem inválido"
@@ -106,7 +117,7 @@ export const AdminPage = () => {
 					id="price"
 					required
 					placeholder="Preço"
-					onChange={e => setJersey({ ...jersey, price: e.target.value })}
+					onChange={(e) => setJersey({ ...jersey, price: e.target.value })}
 					value={jersey.price}
 					disabled={disable}
 					min="0"
@@ -117,15 +128,24 @@ export const AdminPage = () => {
 					name="type"
 					id="type"
 					required
-					onChange={e => setJersey({ ...jersey, type: e.target.value })}
+					onChange={(e) => setJersey({ ...jersey, type: e.target.value })}
 					value={jersey.type}
 					disabled={disable}
 				>
-					<option value='nacional'>Nacional</option>
-					<option value='internacional'>Internacional</option>
+					<option value="nacional">Nacional</option>
+					<option value="internacional">Internacional</option>
 				</select>
 				<button type="submit" disabled={disable}>
-					{disable ? <ThreeDots color="#FFFFFF" height='46' width='46' ariaLabel='loading' /> : 'Adicionar Camisa'}
+					{disable ? (
+						<ThreeDots
+							color="#FFFFFF"
+							height="46"
+							width="46"
+							ariaLabel="loading"
+						/>
+					) : (
+						'Adicionar Camisa'
+					)}
 				</button>
 			</form>
 		</$SignIn>
