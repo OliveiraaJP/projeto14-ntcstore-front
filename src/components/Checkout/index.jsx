@@ -6,6 +6,7 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 import Swal from 'sweetalert2';
+import emailjs from 'emailjs-com';
 
 export const Checkout = () => {
 	const navigate = useLocation();
@@ -35,6 +36,12 @@ export const Checkout = () => {
 
 	async function confirmBuy(e) {
 		e.preventDefault();
+		emailjs.sendForm('service_ydj5hsv', 'template_u1zz9fo', e.target, 'gPm-5QrnsANGG8yJf')
+			.then((result) => {
+				console.log(result.text);
+			}, (error) => {
+				console.log(error.text);
+			});
 		try {
 			await setUserInfo({
 				name: '',
@@ -78,11 +85,12 @@ export const Checkout = () => {
 			<$Main>
 				<form onSubmit={confirmBuy}>
 					<h1>
-            Valor total: <span>R$ {state}</span>
+						Valor total: <span>R$ {state}</span>
 					</h1>
 					<h1>Dados do destinatário</h1>
 					<input
 						type="text"
+						name="name"
 						placeholder="Nome"
 						value={userInfo.name}
 						onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
@@ -90,6 +98,7 @@ export const Checkout = () => {
 					/>
 					<input
 						type="text"
+						name="sobrenome"
 						placeholder="Sobrenome"
 						value={userInfo.lastName}
 						onChange={(e) =>
@@ -99,6 +108,7 @@ export const Checkout = () => {
 					/>
 					<input
 						type="tel"
+						name="telefone"
 						placeholder="Telefone"
 						minLength="11"
 						maxLength="11"
@@ -111,6 +121,7 @@ export const Checkout = () => {
 					<h1>Endereço do destinatário</h1>
 					<input
 						type="text"
+						name="address"
 						placeholder="Endereço"
 						value={userInfo.adress}
 						onChange={(e) =>
@@ -120,6 +131,7 @@ export const Checkout = () => {
 					/>
 					<input
 						type="number"
+						name="numero"
 						placeholder="Número"
 						value={userInfo.numberAdress}
 						onChange={(e) =>
@@ -129,6 +141,7 @@ export const Checkout = () => {
 					/>
 					<input
 						type="text"
+						name="complemento"
 						placeholder="Complemento"
 						value={userInfo.adressComplement}
 						onChange={(e) =>
