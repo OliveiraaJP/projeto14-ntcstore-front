@@ -68,7 +68,7 @@ export const AdminPage = () => {
 		const confirmation = confirm('Deseja realmente fazer log-out?');
 		if (confirmation) {
 			const promise = axios.delete(
-				`${process.env.REACT_APP_API_URI}admin-session`,
+				`${process.env.REACT_APP_API_URI}/admin-session`,
 				/*'https://naotemchuteira.herokuapp.com/admin-session'*/ config
 			);
 			promise.then(() => {
