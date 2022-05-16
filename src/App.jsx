@@ -6,6 +6,7 @@ import { AdminPage } from './components/AdminPage';
 import { Home } from './components/Home';
 import { SignIn } from './components/SignIn';
 import { SignUp } from './components/SignUp';
+import { Checkout } from './components/Checkout';
 import { UserContext } from './contexts/UserContext';
 import { GlobalStyle } from './style';
 import { OpenJersey } from './components/OpenJersey';
@@ -45,6 +46,7 @@ export const App = () => {
 						<Route path='/cart' element={<Cart />} />
 						<Route path='/admin' element={<Admin />} />
 						<Route path='/admin-page' element={<AdminPage />} />
+						<Route path='/checkout' element={<Checkout />} />
 					</Routes>
 				</BrowserRouter>
 			</UserContext.Provider>
