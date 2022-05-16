@@ -5,8 +5,8 @@ import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 import { CartJersey } from './CartJersey';
 
-export const Cart = () => {
 
+export const Cart = () => {
 	const [cart, setCart] = useState([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [reload, setReload] = useState(0);
@@ -23,7 +23,7 @@ export const Cart = () => {
 	useEffect(() => {
 		let camisa = null;
 		async function importJersey() {
-			camisa = await axios.get('http://localhost:5000/cart'
+			camisa = await axios.get(`${process.env.REACT_APP_API_URI}/cart`
 				/*'https://naotemchuteira.herokuapp.com/cart'*/, config);
 			console.log(camisa);
 			setCart(camisa.data.cart);
@@ -43,8 +43,8 @@ export const Cart = () => {
 		let confirm = window.confirm('Deseja excluir esse item do carrinho?');
 		if (!confirm) return;
 		try {
-			await axios.post('http://localhost:5000/deletecart'
-				/*'https://naotemchuteira.herokuapp.com/deletecart'*/, { id }, config);
+			await axios.post(`${process.env.REACT_APP_API_URI}/deletecart`
+				/*'https://naotemchuteira.herokuapp.com/deletecart'*/, {id} , config);
 			setReload(Math.random());
 		} catch (error) {
 			console.log(error);

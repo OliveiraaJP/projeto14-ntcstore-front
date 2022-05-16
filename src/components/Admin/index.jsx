@@ -7,9 +7,11 @@ import logo from '../../assets/logo.jpg';
 import { $SignIn, AutoLogin } from '../SignIn/style';
 import { Input } from '../Input';
 
+
 export const Admin = () => {
+	
 	const navigate = useNavigate();
-	const URL = 'http://localhost:5000/admin';
+	const URL = `${process.env.REACT_APP_API_URI}/admin`;
 	//const URL = 'https://naotemchuteira.herokuapp.com/admin';
 
 	const [admin, setAdmin] = useState({
@@ -57,7 +59,7 @@ export const Admin = () => {
 	};
 	useEffect(() => {
 		if (user.tokenAdmin?.length !== 0) {
-			const promise = axios.post('http://localhost:5000/auto-login-admin'
+			const promise = axios.post(`${process.env.REACT_APP_API_URI}/auto-login-admin`
 				/*'https://naotemchuteira.herokuapp.com/auto-login-admin'*/, {}, config);
 			promise.then(() => {
 				navigate('/admin-page');

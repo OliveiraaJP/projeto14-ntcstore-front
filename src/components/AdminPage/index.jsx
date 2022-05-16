@@ -9,8 +9,10 @@ import { $Logout } from './style';
 import deslogar from '../../assets/deslogar-black.svg';
 import { Input } from '../Input';
 
+
 export const AdminPage = () => {
 
+	
 	const [jersey, setJersey] = useState({
 		name: '',
 		img: '',
@@ -20,7 +22,7 @@ export const AdminPage = () => {
 
 	const [disable, setDisable] = useState(false);
 	const { user, setUser } = useContext(UserContext);
-	const URL = 'http://localhost:5000/jerseys';
+	const URL = `${process.env.REACT_APP_API_URI}/jerseys`;
 	//const URL = 'https://naotemchuteira.herokuapp.com/jerseys';
 
 	const config = {
@@ -58,7 +60,7 @@ export const AdminPage = () => {
 	function logOut() {
 		const confirmation = confirm('Deseja realmente fazer log-out?');
 		if (confirmation) {
-			const promise = axios.delete('http://localhost:5000/admin-session'
+			const promise = axios.delete(`${process.env.REACT_APP_API_URI}admin-session`
 				/*'https://naotemchuteira.herokuapp.com/admin-session'*/, config);
 			promise.then(() => {
 				localStorage.removeItem('tokenAdmin');

@@ -6,10 +6,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Input } from '../Input';
 
+
 export const SignUp = () => {
+	
 	const navigate = useNavigate();
-	const URL = 'http://localhost:5000/signup';
+	const URL = `${process.env.REACT_APP_API_URI}/signup`;
 	//const URL = 'https://naotemchuteira.herokuapp.com/signup';
+	console.log(process.env);
 
 	const [userSignup, setUserSignup] = useState({
 		email: '',

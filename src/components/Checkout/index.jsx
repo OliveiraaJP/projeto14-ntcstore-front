@@ -6,7 +6,9 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 
+
 export const Checkout = () => {
+	
 	const navigate = useLocation();
 	const navigator = useNavigate();
 	const {state, products} = navigate;
@@ -25,7 +27,7 @@ export const Checkout = () => {
 	async function confirmBuy(e){
 		e.preventDefault();
 		try {
-			await axios.post('http://localhost:5000/checkout', {userInfo},config );
+			await axios.post(`${process.env.REACT_APP_API_URI}/checkout`, {userInfo},config );
 			setUserInfo({name:'', lastName:'', tel:'' ,adress:'', numberAdress:'', adressComplement:'', parcel:1, price:state, products:products});
 			window.alert('Compra efetuada');
 			navigator('/homepage');
