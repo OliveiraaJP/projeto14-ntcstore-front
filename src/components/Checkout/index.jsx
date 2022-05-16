@@ -31,6 +31,7 @@ export const Checkout = () => {
 			await setUserInfo({name:'', lastName:'', tel:'' ,adress:'', numberAdress:'', adressComplement:'', parcel:1, price:state, products:user.products});
 			await axios.post(`${process.env.REACT_APP_API_URI}/checkout`, {userInfo},config );
 			window.alert('Compra efetuada');
+			localStorage.removeItem('products');
 			navigator('/homepage');
 		} catch (error) {
 			console.log('confirm error', error);
