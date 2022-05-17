@@ -20,6 +20,12 @@ margin-bottom: 13px;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
+        color: #fff;
+    }
+    @media (min-width: 1100px) {
+        span{
+            color: #000;
+        }
     }
 `;
 
@@ -41,12 +47,22 @@ flex-direction: column;
         height: 30%;
         padding: 0px 5px;
         font-size: 25px;
+        color: #fff;
          p{
              font-weight: bold;
              font-family: 'Courier New', Courier, monospace;
+             color: #fff;
          }
     }
     svg{
         margin: 0 auto;
+    }
+    @media (min-width: 1100px) {
+        div{
+            color: #000;
+            p{
+                color: #000;
+            }
+        }
     }
 `;

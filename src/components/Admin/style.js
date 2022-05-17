@@ -40,7 +40,7 @@ form{
 span{
     font-weight: 700;
     font-size: 15px;
-    color: #000;
+    color: #fff;
 }
 img{
     width: 120px;
@@ -67,6 +67,13 @@ h2{
     font-weight: 700;
     position: absolute;
     top: 30px;
+    color: #a9a9a9;
+}
+
+@media (min-width: 1100px) {
+    span{
+        color: #000;
+    }
 }
 `;
 

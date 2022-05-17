@@ -5,7 +5,7 @@ export const $Home = styled.div`
 header{
     position: sticky;
     top: 0;
-    background-color: black;
+    background-color: rgba(0, 0, 0);
     height: 80px;
     display: flex;
     justify-content: space-between;
@@ -13,6 +13,7 @@ header{
     padding-left: 20px;
     padding-right: 20px;
     margin-bottom: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
     img:first-child{
         width: 20px;
         cursor: pointer;
@@ -31,12 +32,14 @@ main{
     h1{
         font-size: 24px;
         font-weight: 700;
+        color: #fff;
     }
     h2{
         font-size: 20px;
         font-weight: 700;
         margin-bottom: 15px;
         margin-top: 20px;
+        color: #fff;
     }
     article{
         display: flex;
@@ -73,6 +76,10 @@ main{
             justify-content: start;
             align-items: center;
             gap: 13px;
+        }
+        h1,
+        h2{
+            color: #000;
         }
     }
 }

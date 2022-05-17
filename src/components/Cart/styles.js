@@ -45,6 +45,7 @@ justify-content: center;
         h1{
             font-size: 30px;
             font-weight: bold;
+            color: #fff;
         }
         span{
             p{
@@ -52,9 +53,11 @@ justify-content: center;
                 justify-content: flex-end;
                 font-size: 23px;
                 font-weight: bold;
+                color: #fff;
             }
             h2{
                 font-size: 15px;
+                color: #fff;
                     b{
                         font-weight: bold;
                     }
@@ -75,6 +78,23 @@ justify-content: center;
         color: white;
         background-color: black;
         margin-bottom: 20px;
+    }
+    @media (min-width: 1100px) {
+    footer{
+        h1{
+            color: #000;
+        }
+        span{
+            p{
+                color: #000;
+            }
+            h2{
+                color: #000;
+            }
+        }
+        
+    }
+
     }
 `;
 

@@ -40,7 +40,7 @@ form{
 span{
     font-weight: 700;
     font-size: 15px;
-    color: #000;
+    color: #fff;
 }
 img{
     width: 120px;
@@ -50,7 +50,7 @@ img{
 a{
     p{
         font-size: 15px;
-        color: #474a51;
+        color: #ce8f00;
         text-align: center;
     }
     img{
@@ -66,6 +66,17 @@ a:last-child{
     position: absolute;
     bottom: 40px;
 }
+
+@media (min-width: 1100px) {
+span{
+    color: #000;
+}
+a{
+    p{
+        color: #474a51;
+    }
+}
+}
 `;
 
 export const AutoLogin = styled.div`
@@ -76,6 +87,11 @@ justify-content: center;
 height: 80vh;
 h1{
     font-size: 23px;
+    color: #ffffff;
+}
+@media (min-width: 1100px) {
+h1{
     color: #000000;
+}
 }
 `;

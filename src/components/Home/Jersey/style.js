@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const $Jersey = styled.div`
+box-shadow: 5px 5px 10px -4px rgba(0, 0, 0, 0.25);
 a{
     height: 200px;
     width: 150px;

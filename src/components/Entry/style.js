@@ -49,12 +49,14 @@ main{
     h1{
         font-size: 24px;
         font-weight: 700;
+        color: #fff;
     }
     h2{
         font-size: 20px;
         font-weight: 700;
         margin-bottom: 15px;
         margin-top: 20px;
+        color: #fff;
     }
     article{
         display: flex;
@@ -88,6 +90,10 @@ main{
             justify-content: start;
             align-items: center;
             gap: 13px;
+        }
+        h1,
+        h2{
+            color: #000;
         }
     }
 }

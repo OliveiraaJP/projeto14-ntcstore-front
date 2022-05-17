@@ -32,16 +32,19 @@ article{
         font-size: 24px;
         text-align: center;
         margin: 10px 0 15px 0;
+        color: #fff;
     }
     img{
         width: 300px;
         border-radius: 5px;
         margin-bottom: 15px;
+        box-shadow: 5px 5px 10px -4px rgba(0, 0, 0, 0.25);
     }
     span{
         text-align: center;
         font-size: 18px;
         font-weight: 700;
+        color: #fff;
     }
     small{
         font-weight: 400;
@@ -84,6 +87,12 @@ article{
         }
         img:nth-child(2){
             width: 80px;
+        }
+    }
+    article{
+        span,
+        h2{
+            color: #000;
         }
     }
 }

@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import ney2 from './assets/ney2.jpg';
 
 export const GlobalStyle = createGlobalStyle`
 ///////// Reset.css //////////
@@ -65,5 +66,16 @@ input,
 select{
 	font-family: 'Roboto';
     font-weight: 400;
+	box-shadow: 3px 3px 10px -4px rgba(0, 0, 0, 0.25);
+}
+body{
+	background-image: url(${ney2});
+	background-repeat: no-repeat;
+	background-size: 100vw 100vh;
+}
+@media (min-width: 1100px) {
+    body{
+		background-image: none;
+	}
 }
 `;

@@ -67,6 +67,7 @@ h2{
     font-weight: 700;
     position: absolute;
     top: 30px;
+    color: #fff;
 }
 `;
 

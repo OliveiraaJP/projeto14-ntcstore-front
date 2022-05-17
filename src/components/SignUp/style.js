@@ -40,11 +40,16 @@ form{
 span{
     font-weight: 700;
     font-size: 15px;
-    color: #000;
+    color: #ce8f00;
 }
 img{
     width: 120px;
     border-radius: 50%;
     margin-bottom: 50px;
+}
+@media (min-width: 1100px) {
+    span{
+        color: #000;
+    }
 }
 `;
