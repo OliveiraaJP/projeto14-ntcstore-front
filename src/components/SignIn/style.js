@@ -52,8 +52,19 @@ a{
         font-size: 15px;
         color: #474a51;
         text-align: center;
-        margin-top: 80px;
     }
+    img{
+        width: 28px;
+        border-radius: 0;
+        margin-bottom: 0;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
+}
+a:last-child{
+    position: absolute;
+    bottom: 40px;
 }
 `;
 

@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContext';
 import { CartJersey } from './CartJersey';
+import { ThreeDots } from 'react-loader-spinner';
 
 export const Cart = () => {
 	const [cart, setCart] = useState([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [reload, setReload] = useState(0);
-	console.log(cart);
+	const [disable, setDisable] = useState(false);
 	const navigate = useNavigate();
 	const { user, setUser } = useContext(UserContext);
 
@@ -22,11 +23,7 @@ export const Cart = () => {
 	useEffect(() => {
 		let camisa = null;
 		async function importJersey() {
-			camisa = await axios.get(
-				`${process.env.REACT_APP_API_URI}/cart`,
-				/*'https://naotemchuteira.herokuapp.com/cart'*/ config
-			);
-			console.log(camisa);
+			camisa = await axios.get(`${process.env.REACT_APP_API_URI}/cart`, config);
 			setCart(camisa.data.cart);
 			somaValores(camisa.data.cart);
 		}
@@ -34,7 +31,6 @@ export const Cart = () => {
 	}, [reload]);
 
 	async function somaValores(res) {
-		console.log('res', res);
 		let total = 0;
 
 		res.map(x => total += x.price * x.qty);
@@ -45,9 +41,7 @@ export const Cart = () => {
 		let confirm = window.confirm('Deseja excluir esse item do carrinho?');
 		if (!confirm) return;
 		try {
-
-			await axios.post(`${process.env.REACT_APP_API_URI}/deletecart`
-				/*'https://naotemchuteira.herokuapp.com/deletecart'*/, { id }, config);
+			await axios.post(`${process.env.REACT_APP_API_URI}/deletecart`, { id }, config);
 			setReload(Math.random());
 		} catch (error) {
 			console.log(error);
@@ -56,29 +50,29 @@ export const Cart = () => {
 
 	async function callbackPlus(id) {
 		try {
+			setDisable(true);
 			const jersey = cart.find(el => el.id === id);
-			await axios.post(`${process.env.REACT_APP_API_URI}/add`
-				/*'https://naotemchuteira.herokuapp.com/add'*/, { id: jersey.id, qty: jersey.qty }, config);
+			await axios.post(`${process.env.REACT_APP_API_URI}/add`, { id: jersey.id, qty: jersey.qty }, config);
 			setReload(Math.random());
+			setDisable(false);
 		} catch (error) {
 			console.log(error);
+			setDisable(false);
 		}
 	}
-	
+
 	async function callbackMinus(id) {
 		try {
+			setDisable(true);
 			const jersey = cart.find(el => el.id === id);
-			await axios.post(`${process.env.REACT_APP_API_URI}/remove`
-				/*'https://naotemchuteira.herokuapp.com/add'*/, { id: jersey.id, qty: jersey.qty }, config);
+			await axios.post(`${process.env.REACT_APP_API_URI}/remove`, { id: jersey.id, qty: jersey.qty }, config);
 
 			setReload(Math.random());
+			setDisable(false);
 		} catch (error) {
+			setDisable(false);
 			console.log(error);
 		}
-	}
-
-	function showcart() {
-		console.log(cart);
 	}
 
 	function backToMain() {
@@ -93,8 +87,7 @@ export const Cart = () => {
 
 			camisas.push(obj);
 		});
-		console.log(camisas);
-		setUser({...user, products: camisas});
+		setUser({ ...user, products: camisas });
 
 		const productsSerialized = JSON.stringify({ camisas });
 		localStorage.setItem('products', productsSerialized);
@@ -112,7 +105,7 @@ export const Cart = () => {
 			</header>
 			{cart?.length === 0 && (
 				<$EmptyCart>
-					<p onClick={showcart}> O carrinho de compras está vazio.</p>
+					<p> O carrinho de compras está vazio.</p>
 				</$EmptyCart>
 			)}
 			<main>
@@ -130,6 +123,7 @@ export const Cart = () => {
 								callbackDelete={() => callbackDelete(jersey.id)}
 								callbackPlus={() => callbackPlus(jersey.id)}
 								callbackMinus={() => callbackMinus(jersey.id)}
+								disable={disable}
 							/>
 						);
 					})}
@@ -145,7 +139,12 @@ export const Cart = () => {
 							</h2>
 						</span>
 					</footer>
-					<button onClick={goCheckout}>FINALIZAR COMPRA</button>
+					<button onClick={goCheckout} disabled={disable}>
+						{disable ?
+							<ThreeDots color="#FFFFFF" height='46' width='46' ariaLabel='loading' /> :
+							'FINALIZAR COMPRA'
+						}
+					</button>
 				</>
 			)}
 		</$Cart>

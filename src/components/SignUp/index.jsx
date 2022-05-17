@@ -6,13 +6,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Input } from '../Input';
 
-
 export const SignUp = () => {
-	
+
 	const navigate = useNavigate();
 	const URL = `${process.env.REACT_APP_API_URI}/signup`;
-	//const URL = 'https://naotemchuteira.herokuapp.com/signup';
-	console.log(process.env);
 
 	const [userSignup, setUserSignup] = useState({
 		email: '',
@@ -26,12 +23,10 @@ export const SignUp = () => {
 
 		event.preventDefault();
 		setDisable(true);
-		console.log(userSignup);
 		try {
 			// eslint-disable-next-line no-unused-vars
 			const promise = axios.post(URL, userSignup);
-			console.log('cadastrou com sucesso');
-			navigate('/');
+			navigate('/signin');
 		} catch (error) {
 			console.log('erro front criar user', error);
 		}
@@ -102,7 +97,7 @@ export const SignUp = () => {
 					)}
 				</button>
 			</form>
-			<Link to="/">
+			<Link to="/signin">
 				<span>Já possui conta? Faça o login!</span>
 			</Link>
 		</$SignUp>

@@ -46,4 +46,7 @@ flex-direction: column;
              font-family: 'Courier New', Courier, monospace;
          }
     }
+    svg{
+        margin: 0 auto;
+    }
 `;

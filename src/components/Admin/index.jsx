@@ -4,15 +4,16 @@ import { ThreeDots } from 'react-loader-spinner';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import logo from '../../assets/logo.jpg';
-import { $SignIn, AutoLogin } from '../SignIn/style';
+import { AutoLogin } from '../SignIn/style';
 import { Input } from '../Input';
 import Swal from 'sweetalert2';
+import house from '../../assets/house.svg';
+import { $Admin } from './style';
 
 export const Admin = () => {
-	
+
 	const navigate = useNavigate();
 	const URL = `${process.env.REACT_APP_API_URI}/admin`;
-	//const URL = 'https://naotemchuteira.herokuapp.com/admin';
 
 	const [admin, setAdmin] = useState({
 		email: '',
@@ -31,10 +32,7 @@ export const Admin = () => {
 			const { data } = res;
 			const { token } = data;
 			setUser({ tokenAdmin: token });
-			console.log(data);
-
 			localStorage.setItem('tokenAdmin', token);
-
 			navigate('/admin-page');
 		});
 		promise.catch(err => {
@@ -75,8 +73,7 @@ export const Admin = () => {
 	};
 	useEffect(() => {
 		if (user.tokenAdmin?.length !== 0) {
-			const promise = axios.post(`${process.env.REACT_APP_API_URI}/auto-login-admin`
-				/*'https://naotemchuteira.herokuapp.com/auto-login-admin'*/, {}, config);
+			const promise = axios.post(`${process.env.REACT_APP_API_URI}/auto-login-admin`, {}, config);
 			promise.then(() => {
 				navigate('/admin-page');
 			});
@@ -92,7 +89,11 @@ export const Admin = () => {
 	}, []);
 
 	return (
-		<$SignIn>
+		<$Admin>
+			<h2>Admin Page</h2>
+			<Link to='/'>
+				<img src={house} alt='home' />
+			</Link>
 			<img src={logo} alt='logo' />
 			<form onSubmit={Enter}>
 				<Input
@@ -106,7 +107,7 @@ export const Admin = () => {
 					disabled={disable}
 					message="Email inválido"
 				/>
-				<Input 
+				<Input
 					type="password"
 					name="password"
 					id="password"
@@ -123,9 +124,9 @@ export const Admin = () => {
 					{disable ? <ThreeDots color="#FFFFFF" height='46' width='46' ariaLabel='loading' /> : 'Entrar'}
 				</button>
 			</form>
-			<Link to='/'>
+			<Link to='/signin'>
 				<span>Voltar para login!</span>
 			</Link>
-		</$SignIn>
+		</$Admin>
 	);
 };
