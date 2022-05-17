@@ -11,7 +11,7 @@ import { Input } from '../Input';
 
 export const SignIn = () => {
 
-	
+
 	const navigate = useNavigate();
 	const URL = `${process.env.REACT_APP_API_URI}/sign-in`;
 	//const URL = 'https://naotemchuteira.herokuapp.com/sign-in';
@@ -31,10 +31,10 @@ export const SignIn = () => {
 		const promise = axios.post(URL, userLogin);
 		promise.then((res) => {
 			const { data } = res;
-			const { name, token } = data;
-			setUser({ ...user, name, token });
+			const { name, email, token } = data;
+			setUser({ ...user, name, email, token });
 
-			const userSerialized = JSON.stringify({ name, token });
+			const userSerialized = JSON.stringify({ name, email, token });
 			localStorage.setItem('user', userSerialized);
 
 			navigate('/homepage');
@@ -81,7 +81,7 @@ export const SignIn = () => {
 		<$SignIn>
 			<img src={logo} alt='logo' />
 			<form onSubmit={Enter}>
-				<Input 
+				<Input
 					type="email"
 					name="email"
 					id="email"
@@ -92,7 +92,7 @@ export const SignIn = () => {
 					disabled={disable}
 					message="Email inválido"
 				/>
-				<Input 
+				<Input
 					type="password"
 					name="password"
 					id="password"
