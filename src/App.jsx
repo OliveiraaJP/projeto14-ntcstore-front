@@ -13,6 +13,7 @@ import { OpenJersey } from './components/OpenJersey';
 
 export const App = () => {
 	let name = '';
+	let email = '';
 	let token = '';
 	let tokenAdmin = '';
 	let products = [];
@@ -21,6 +22,7 @@ export const App = () => {
 	if (userStringify) {
 		const userLocal = JSON.parse(userStringify);
 		name = userLocal.name;
+		email = userLocal.email;
 		token = userLocal.token;
 	}
 	const tokenAdminLocal = localStorage.getItem('tokenAdmin');
@@ -35,6 +37,7 @@ export const App = () => {
 
 	const [user, setUser] = useState({
 		name,
+		email,
 		token,
 		tokenAdmin,
 		products

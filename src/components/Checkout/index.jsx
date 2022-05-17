@@ -36,7 +36,11 @@ export const Checkout = () => {
 
 	async function confirmBuy(e) {
 		e.preventDefault();
-		emailjs.sendForm('service_ydj5hsv', 'template_u1zz9fo', e.target, 'gPm-5QrnsANGG8yJf')
+		emailjs.send('service_ydj5hsv', 'template_u1zz9fo', {
+			name: userInfo.name,
+			lastName: userInfo.lastName,
+			email: user.email
+		}, 'gPm-5QrnsANGG8yJf')
 			.then((result) => {
 				console.log(result.text);
 			}, (error) => {
