@@ -1,39 +1,26 @@
 import { useContext, useEffect, useState } from 'react';
-import { $Home, Loading } from './style';
 import logo from '../../assets/logo.jpg';
-import deslogar from '../../assets/deslogar.svg';
-import car from '../../assets/car.svg';
-import { Jersey } from './Jersey';
 import { UserContext } from '../../contexts/UserContext';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ThreeDots } from 'react-loader-spinner';
+import { Loading } from '../Home/style';
+import { Jersey } from '../Home/Jersey';
+import { $Entry } from './style';
+import { Link, useNavigate } from 'react-router-dom';
+import { AutoLogin } from '../SignIn/style';
 
-export const Home = () => {
+export const Entry = () => {
 	const [jerseys, setJerseys] = useState([]);
+	const navigate = useNavigate();
 
-	const { user, setUser } = useContext(UserContext);
-	const URL = `${process.env.REACT_APP_API_URI}/jerseys`;
-
-	const config = {
-		headers: {
-			Authorization: `Bearer ${user.token}`,
-		},
-	};
+	const { user } = useContext(UserContext);
+	const URL = `${process.env.REACT_APP_API_URI}/jerseys-homepage`;
 
 	useEffect(() => {
-		const promise = axios.get(URL, config);
+		const promise = axios.get(URL);
 		promise.then((res) => setJerseys(res.data));
-		promise.catch((err) => {
-			navigate('/');
-			if (err.response.status === 401) {
-				return Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: 'Sem permissão faça login novamente',
-				});
-			}
+		promise.catch(() => {
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops...',
@@ -42,20 +29,27 @@ export const Home = () => {
 		});
 	}, []);
 
-	const navigate = useNavigate();
-	function logOut() {
-		const confirmation = confirm('Deseja realmente fazer log-out?');
-		if (confirmation) {
-			const promise = axios.delete(
-				`${process.env.REACT_APP_API_URI}/session`, config);
-			promise.then(() => {
-				localStorage.removeItem('user');
-				setUser({ ...user, name: '', token: '' });
-				navigate('/');
-			});
-			promise.catch(() => alert('Erro ao fazer log-out'));
+	const config = {
+		headers: {
+			'Authorization': `Bearer ${user.token}`
 		}
-	}
+	};
+	useEffect(() => {
+		if (user.token?.length !== 0) {
+			const promise = axios.post(`${process.env.REACT_APP_API_URI}/auto-login`, {}, config);
+			promise.then(() => {
+				navigate('/homepage');
+			});
+			promise.catch(() => console.log('Erro ao fazer o auto-login'));
+
+			return (
+				<AutoLogin>
+					<h1>Logando...</h1>
+					<ThreeDots color="#000000" height={80} width={80} />
+				</AutoLogin>
+			);
+		}
+	}, []);
 
 	if (jerseys.length === 0) {
 		return (
@@ -69,16 +63,19 @@ export const Home = () => {
 	}
 
 	return (
-		<$Home>
+		<$Entry>
 			<header>
-				<img src={deslogar} alt="deslogar" onClick={logOut} />
 				<img src={logo} alt="logo" />
-				<Link to={'/cart'}>
-					<img src={car} alt="car" />
-				</Link>
+				<div>
+					<Link to={'/signin'}>
+						<span>Sign In</span>
+					</Link>
+					<Link to={'/signup'}>
+						<button>Sign Up</button>
+					</Link>
+				</div>
 			</header>
 			<main>
-				<h1>Bem vindo, {user.name}!</h1>
 				<h2>Times Nacionais</h2>
 				<article>
 					{jerseys.map((jersey, i) => {
@@ -112,6 +109,6 @@ export const Home = () => {
 					})}
 				</article>
 			</main>
-		</$Home>
+		</$Entry>
 	);
 };

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const $AdminPage = styled.div`
+export const $Admin = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -79,16 +79,5 @@ height: 80vh;
 h1{
     font-size: 23px;
     color: #000000;
-}
-`;
-
-export const $Logout = styled.div`
-position: absolute;
-top: 20px;
-left: 20px;
-img{
-    width: 25px;
-    border-radius: 0;
-    cursor: pointer;
 }
 `;

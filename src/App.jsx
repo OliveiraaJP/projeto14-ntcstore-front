@@ -10,6 +10,7 @@ import { Checkout } from './components/Checkout';
 import { UserContext } from './contexts/UserContext';
 import { GlobalStyle } from './style';
 import { OpenJersey } from './components/OpenJersey';
+import { Entry } from './components/Entry';
 
 export const App = () => {
 	let name = '';
@@ -49,8 +50,9 @@ export const App = () => {
 			<UserContext.Provider value={{ user, setUser }}>
 				<BrowserRouter>
 					<Routes>
-						<Route path='/' element={<SignIn />} />
-						<Route path='/cadastro' element={<SignUp />} />
+						<Route path='/' element={<Entry />} />
+						<Route path='/signin' element={<SignIn />} />
+						<Route path='/signup' element={<SignUp />} />
 						<Route path='/homepage' element={<Home />} />
 						<Route path='/jersey/:id' element={<OpenJersey />} />
 						<Route path='/cart' element={<Cart />} />

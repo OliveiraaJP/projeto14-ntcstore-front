@@ -1,14 +1,14 @@
-import { $SignIn } from '../SignIn/style';
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 import { UserContext } from '../../contexts/UserContext';
 import logo from '../../assets/logo.jpg';
-import { useNavigate } from 'react-router-dom';
-import { $Logout } from './style';
+import { Link, useNavigate } from 'react-router-dom';
+import { $AdminPage, $Logout } from './style';
 import deslogar from '../../assets/deslogar-black.svg';
 import { Input } from '../Input';
 import Swal from 'sweetalert2';
+import house from '../../assets/house.svg';
 
 export const AdminPage = () => {
 	const [jersey, setJersey] = useState({
@@ -21,7 +21,6 @@ export const AdminPage = () => {
 	const [disable, setDisable] = useState(false);
 	const { user, setUser } = useContext(UserContext);
 	const URL = `${process.env.REACT_APP_API_URI}/jerseys`;
-	//const URL = 'https://naotemchuteira.herokuapp.com/jerseys';
 
 	const config = {
 		headers: {
@@ -68,26 +67,35 @@ export const AdminPage = () => {
 		const confirmation = confirm('Deseja realmente fazer log-out?');
 		if (confirmation) {
 			const promise = axios.delete(
-				`${process.env.REACT_APP_API_URI}/admin-session`,
-				/*'https://naotemchuteira.herokuapp.com/admin-session'*/ config
-			);
+				`${process.env.REACT_APP_API_URI}/admin-session`, config);
 			promise.then(() => {
 				localStorage.removeItem('tokenAdmin');
 				setUser({ ...user, tokenAdmin: '' });
-				navigate('/');
+				navigate('/admin');
 			});
 			promise.catch(() =>
-				alert('Erro ao fazer auto-login')
+				alert('Erro ao fazer logout')
 			);
 		}
 	}
 
+	useEffect(() => {
+		if (!user.tokenAdmin) {
+			alert('Faça login como admin para acessar essa página!');
+			navigate('/admin');
+		}
+	}, []);
+
 	return (
-		<$SignIn>
+		<$AdminPage>
 			<img src={logo} alt="logo" />
+			<h2>Admin Page</h2>
 			<$Logout>
 				<img src={deslogar} alt="deslogar" onClick={logOut} />
 			</$Logout>
+			<Link to='/'>
+				<img src={house} alt='home' />
+			</Link>
 			<form onSubmit={postJersey}>
 				<Input
 					type="text"
@@ -148,6 +156,6 @@ export const AdminPage = () => {
 					)}
 				</button>
 			</form>
-		</$SignIn>
+		</$AdminPage>
 	);
 };

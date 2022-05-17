@@ -8,21 +8,18 @@ header{
     background-color: black;
     height: 80px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-left: 20px;
     padding-right: 20px;
     margin-bottom: 15px;
     img:first-child{
         width: 20px;
         cursor: pointer;
+        position: absolute;
+        left: 20px;
     }
     img:nth-child(2){
         width: 70px;
-    }
-    img:nth-child(3){
-        width: 30px;
-        cursor: pointer;
     }
 }
 
@@ -87,9 +84,6 @@ article{
         }
         img:nth-child(2){
             width: 80px;
-        }
-        img:nth-child(3){
-            width: 33px;
         }
     }
 }

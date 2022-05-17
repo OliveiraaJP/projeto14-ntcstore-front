@@ -25,8 +25,6 @@ export const Checkout = () => {
 		price: state,
 		products: user.products,
 	});
-	console.log('state ' + state);
-	console.log(user);
 
 	const config = {
 		headers: {

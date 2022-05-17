@@ -1,20 +1,17 @@
-/* eslint-disable no-unused-vars */
-import { $SignIn, AutoLogin } from './style';
+import { $SignIn } from './style';
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import logo from '../../assets/logo.jpg';
 import { Input } from '../Input';
-
+import house from '../../assets/house.svg';
 
 export const SignIn = () => {
 
-
 	const navigate = useNavigate();
 	const URL = `${process.env.REACT_APP_API_URI}/sign-in`;
-	//const URL = 'https://naotemchuteira.herokuapp.com/sign-in';
 
 	const [userLogin, setUserLogin] = useState({
 		email: '',
@@ -54,31 +51,11 @@ export const SignIn = () => {
 		});
 	}
 
-	const config = {
-		headers: {
-			'Authorization': `Bearer ${user.token}`
-		}
-	};
-	useEffect(() => {
-		if (user.token?.length !== 0) {
-			const promise = axios.post(`${process.env.REACT_APP_API_URI}/auto-login`
-				/*'https://naotemchuteira.herokuapp.com/auto-login'*/, {}, config);
-			promise.then(() => {
-				navigate('/homepage');
-			});
-			promise.catch(() => alert('Erro ao fazer o auto-login'));
-
-			return (
-				<AutoLogin>
-					<h1>Logando...</h1>
-					<ThreeDots color="#000000" height={80} width={80} />
-				</AutoLogin>
-			);
-		}
-	}, []);
-
 	return (
 		<$SignIn>
+			<Link to='/'>
+				<img src={house} alt='home' />
+			</Link>
 			<img src={logo} alt='logo' />
 			<form onSubmit={Enter}>
 				<Input
@@ -109,7 +86,7 @@ export const SignIn = () => {
 					{disable ? <ThreeDots color="#FFFFFF" height='46' width='46' ariaLabel='loading' /> : 'Entrar'}
 				</button>
 			</form>
-			<Link to='/cadastro'>
+			<Link to='/signup'>
 				<span>Primeira vez? Cadastre-se!</span>
 			</Link>
 			<Link to='/admin'>
